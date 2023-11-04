@@ -6,23 +6,11 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:33:38 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/04 01:02:19 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/04 22:28:16 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
-bool	valid_rgb(char *str, int *color)
-{
-	// TODO:
-	/*
-		check if string is valid rgb 
-		convert it to int and set it to *color
-	*/
-	free(str);
-	*color = 16777215;
-	return true;
-}
 
 t_token	get_id(char c1, char c2)
 {
@@ -60,10 +48,10 @@ bool	parser_textures(t_parse *prs)
 		if (id < 5){
 			prs->textures[id - 1] = ft_strtrim(&temp[2], "\t\v ");
 			if (prs->textures[id - 1] == NULL || prs->textures[id - 1][0] == '\0')
-				return (ft_puterror(1, "Emty texture path"), false);
+				return (free(temp), ft_puterror(1, "Emty texture path"), false);
 		}
 		else if (!valid_rgb(ft_strtrim(&temp[1], "\t\v "), &prs->colors[id - 5]))
-			return (ft_puterror(1, "Invalid identifier"), false);
+			return (free(temp), ft_puterror(1, "Invalid RGB color"), false);
 		free(temp);
 		number_of_textures++;
 	}

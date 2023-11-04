@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 19:26:02 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/04 03:06:13 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/04 22:36:20 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,37 @@ int	ft_max(int a, int b)
 	return b;
 }
 
+void	pass_to_rendering(t_parse *prs)
+{
+	t_render	render;
+	int			idx;
 
-// void	leaks(){
-// 	system("leaks cub3d");
-// }
+	ft_memset(&render, 0, sizeof(t_render));
+	render.map = prs->map;
+	prs->map = NULL;
+	idx = -1;
+	while (++idx < 4)
+	{
+		if (idx < 2)
+			render.colors[idx] = prs->colors[idx];
+		render.textures[idx] = prs->textures[idx];
+		prs->textures[idx] = NULL;
+	}
+	render.player = prs->player;
+	render.width = prs->width + 2;
+	render.height = prs->heigth + 2;
+	// render_game(&render);
+}
+
+void	leaks(){
+	system("leaks cub3d");
+}
 
 int	main(int ac, char **av)
 {
 	t_parse	parser;
 
-	// atexit(leaks);
+	atexit(leaks);
 	ft_memset(&parser, 0, sizeof(t_parse));
 	parser.colors[0] = -1;
 	parser.colors[1] = -1;
@@ -37,18 +58,19 @@ int	main(int ac, char **av)
 		ft_puterror(1, "usage: ./cub3d [path/to/map.ber]");
 		return (1);
 	}
-	// if (!parsed(av[1], &parser))
-	// 	return (free_t_parse(&parser), 1);
-	// printf("\nNO: %s\n", parser.textures[NO - 1]);
-	// printf("SO: %s\n", parser.textures[SO - 1]);
-	// printf("WE: %s\n", parser.textures[WE - 1]);
-	// printf("EA: %s\n", parser.textures[EA - 1]);
-	// printf("F color: %X\n", parser.colors[F - 5]);
-	// printf("C color: %X\n", parser.colors[C - 5]);
-	// printf("====== Map: ======\n");
-	// for (int i=0; parser.map[i]; i++){
+	if (!parsed(av[1], &parser))
+		return (free_t_parse(&parser), 1);
+
+	// printf("NO : %s\n", parser.textures[NO - 1]);
+	// printf("SO : %s\n", parser.textures[SO - 1]);
+	// printf("WE : %s\n", parser.textures[WE - 1]);
+	// printf("EA : %s\n", parser.textures[EA - 1]);
+	// printf("Floor : 0x%X\n", parser.colors[0]);
+	// printf("Ceilling : 0x%X\n", parser.colors[1]);
+	// for (int i=0; parser.map[i]; i++)
 	// 	printf("%s\n", parser.map[i]);
-	// }
+
+	pass_to_rendering(&parser);
 	free_t_parse(&parser);
 	return (0);
 }
