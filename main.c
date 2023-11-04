@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 19:26:02 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/04 22:36:20 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/04 23:34:05 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int ac, char **av)
 	parser.colors[1] = -1;
 	if (ac != 2 || ft_strcmp(".cub", ft_strrchr(av[1], '.')))
 	{
-		ft_puterror(1, "usage: ./cub3d [path/to/map.ber]");
+		ft_puterror(1, "usage: ./cub3d [path/to/map.cub]");
 		return (1);
 	}
 	if (!parsed(av[1], &parser))
@@ -70,7 +70,7 @@ int	main(int ac, char **av)
 	// for (int i=0; parser.map[i]; i++)
 	// 	printf("%s\n", parser.map[i]);
 
-	pass_to_rendering(&parser);
+	// pass_to_rendering(&parser);
 	free_t_parse(&parser);
 	return (0);
 }
