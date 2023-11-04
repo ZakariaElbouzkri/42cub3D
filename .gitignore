@@ -1,0 +1,10 @@
+.vscode/
+*.o
+*.out
+*.a
+cub3D
+*test*
+*.png
+mlxflags
+mk
+*.cub
