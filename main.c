@@ -38,18 +38,25 @@ void	pass_to_rendering(t_parse *prs)
 	render.player = prs->player;
 	render.width = prs->width + 2;
 	render.height = prs->heigth + 2;
-	// render_game(&render);
+	render_game(&render);
 }
 
-void	leaks(){
-	system("leaks cub3d");
+void print_map(t_parse parser)
+{
+	printf("NO : %s\n", parser.textures[NO - 1]);
+	printf("SO : %s\n", parser.textures[SO - 1]);
+	printf("WE : %s\n", parser.textures[WE - 1]);
+	printf("EA : %s\n", parser.textures[EA - 1]);
+	printf("Floor : 0x%X\n", parser.colors[0]);
+	printf("Ceilling : 0x%X\n", parser.colors[1]);
+	for (int i=0; parser.map[i]; i++)
+		printf("%s\n", parser.map[i]);
 }
 
 int	main(int ac, char **av)
 {
 	t_parse	parser;
 
-	atexit(leaks);
 	ft_memset(&parser, 0, sizeof(t_parse));
 	parser.colors[0] = -1;
 	parser.colors[1] = -1;
@@ -61,16 +68,7 @@ int	main(int ac, char **av)
 	if (!parsed(av[1], &parser))
 		return (free_t_parse(&parser), 1);
 
-	// printf("NO : %s\n", parser.textures[NO - 1]);
-	// printf("SO : %s\n", parser.textures[SO - 1]);
-	// printf("WE : %s\n", parser.textures[WE - 1]);
-	// printf("EA : %s\n", parser.textures[EA - 1]);
-	// printf("Floor : 0x%X\n", parser.colors[0]);
-	// printf("Ceilling : 0x%X\n", parser.colors[1]);
-	// for (int i=0; parser.map[i]; i++)
-	// 	printf("%s\n", parser.map[i]);
-
-	// pass_to_rendering(&parser);
+	pass_to_rendering(&parser);
 	free_t_parse(&parser);
 	return (0);
 }

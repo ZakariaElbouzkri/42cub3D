@@ -39,7 +39,11 @@ typedef struct s_lst {
 typedef struct s_pos {
 	int x;
 	int y;
+	int turnDir;
+	int walkDir;
 	double angle;
+	double speed;
+	double rot_speed;
 }	t_pos;
 
 typedef struct s_parse {
@@ -80,6 +84,7 @@ bool	parser_textures(t_parse *prs);
 
 // rendering
 void	render_game(t_render *render);
+
 
 
 // parser utils
