@@ -27,6 +27,13 @@
 
 #define TAIL 32
 
+enum {
+	DOWN = 126,
+	UP = 127,
+	LEFT = 124,
+	RIGHT = 125
+};
+
 typedef enum s_token{
 	NON, NO, SO, WE, EA, F, C
 } t_token;
