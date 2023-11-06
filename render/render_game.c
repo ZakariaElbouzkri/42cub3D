@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:20:27 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/04 03:38:33 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/06 04:48:42 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,51 +14,85 @@
 
 void draw_square(mlx_image_t	*g_img, int x, int y, int color)
 {
-	int xEnd = (x+1) *TAIL;
-	int yEnd = (y+1) *TAIL;
-	int newX;
-	int newY;
+	int i;
+	int j;
 
-	newY = y*TAIL;
-	
-	while (newY < yEnd)
+	j = -1;
+	while (++j < TAIL)
 	{
-		newX = x*TAIL;
-		while(newX < xEnd)
-		{
-				mlx_put_pixel(g_img, newX, newY, color);
-			newX++;
-		}
-		newY++;
+		i = -1;
+		while (++i < TAIL)
+			mlx_put_pixel(g_img, x + i, y + j, color);
 	}
+	// int newX;
+	// int newY;
+
+	// newY = y*TAIL;
+	
+	// while (newY < TAIL)
+	// {
+	// 	newX = x*TAIL;
+	// 	while(newX < TAIL)
+	// 	{
+	// 			mlx_put_pixel(g_img, newX, newY, color);
+	// 		newX++;
+	// 	}
+	// 	newY++;
+	// }
 }
 
 
-void draw_full_image(t_render *render)
+void draw_map(t_render *render)
 {
-	int y = 0;
+	int y;
 	int x;
-	while (render->map[y])
+
+	y = -1;
+	while (render->map[++y])
 	{
-		x = 0;
-		while(render->map[y][x])
+		x = -1;
+		while(render->map[y][++x])
 		{
 			if (render->map[y][x] == '1')
-				draw_square(render->image, x , y, 0xE5FFCC);
-			else if (render->map[y][x] == '0')
-				draw_square(render->image, x , y, 0x000000FF);
-			else if (render->map[y][x] == 'N')
-				draw_square(render->image, x, y, 0x000000FF);
-			x++;
+				draw_square(render->image, x * TAIL, y * TAIL, render->colors[1]);
+			else if (ft_strchr("NESW0", render->map[y][x]))
+				draw_square(render->image, x * TAIL, y * TAIL, render->colors[0]);
 		}
-		y++;
 	}
+	draw_player(render);
 }
 
+void	draw_ray(t_render *rend)
+{
+	int	lenght;
+	double	end_x;
+	double	end_y;
+
+	lenght = 0;
+	end_x = rend->player.x;
+	end_y = rend->player.y;
+	while (lenght < TAIL)
+	{
+		end_x = end_x + cos(rend->player.angle);
+		end_y = end_y + sin(rend->player.angle);
+		mlx_put_pixel(rend->image, end_x, end_y, 0xFF0000FF);
+		lenght++;
+	}
+}
 
 void draw_player(t_render *render)
 {
-	draw_square(render->image, render->player.x, render->player.y, 0xFFFF00FF);
+	int i;
+	int j;
+
+	j = -2;
+	while (j++ < 2)
+	{
+		i = -2;
+		while (i++ < 2)
+			mlx_put_pixel(render->image,render->player.x + i, render->player.y + j, 0xFF0000FF);
+	}
+	draw_ray(render);
 }
 
 void display_player_info(t_pos *player)
@@ -69,15 +103,9 @@ void display_player_info(t_pos *player)
 	printf("turDir: %d\n", player->turnDir);
 	printf("walkDir: %d\n", player->walkDir);
 	printf("rot_angle: %f\n", player->angle);
-	printf("speed: %f\n", player->speed);
-	printf("rot_speed: %f\n", player->rot_speed);
+	// printf("speed: %f\n", player->speed);
+	// printf("rot_speed: %f\n", player->rot_speed);
 }
-
-void draw_mainFunc(t_render *render)
-{
-	draw_player(render);
-}
-
 
 void update_player(t_render **rend)
 {
@@ -103,29 +131,40 @@ void keypress(void *ptr)
 	t_render *rend;
 
 	rend = (t_render *)ptr;
-	mlx_delete_image(rend->mlx, rend->image);
-	rend->image = mlx_new_image(rend->mlx, rend->width * TAIL, rend->height * TAIL);
-	mlx_image_to_window(rend->mlx, rend->image, 0, 0);
-	draw_full_image(rend);
-	update_player(&rend);
-	draw_player(rend);
+	if (mlx_is_key_down(rend->mlx, MLX_KEY_ESCAPE))
+		exit(0);
+	const int x = mlx_is_key_down(rend->mlx, MLX_KEY_A) * -SPEED + mlx_is_key_down(rend->mlx, MLX_KEY_D) * SPEED;
+	const int y = mlx_is_key_down(rend->mlx, MLX_KEY_W) * -SPEED + mlx_is_key_down(rend->mlx, MLX_KEY_S) * SPEED;
+	const double rot = mlx_is_key_down(rend->mlx, MLX_KEY_LEFT) * -0.05 + mlx_is_key_down(rend->mlx, MLX_KEY_RIGHT) * 0.05;
+	rend->player.angle += rot;
+	printf("%f\n", rend->player.angle);
+	if (x != 0 || y != 0)
+	{
+		if (rend->map[(rend->player.y + y) / TAIL][(rend->player.x + x) / TAIL] == '1')
+			return ;
+		rend->player.x += x * cos(rend->player.angle);
+		rend->player.y += y * sin(rend->player.angle);
+	}
+	// mlx_delete_image(rend->mlx, rend->image);
+	// rend->image = mlx_new_image(rend->mlx, rend->width * TAIL, rend->height * TAIL);
+	// mlx_image_to_window(rend->mlx, rend->image, 0, 0);
+	draw_map(rend);
+	// update_player(&rend);
+	// draw_player(rend);
 }
 
 void	render_game(t_render *render)
 {
-	printf("Height: %d\n", render->height*TAIL);
-	printf("Width: %d\n", render->width*TAIL);
-
-	render->player.speed = 3.0;
-	render->player.rot_speed = 3 * (3.141593/180);
-	render->mlx = mlx_init(render->width * TAIL, render->height * TAIL, "CUB3D", true);
-	render->image = mlx_new_image(render->mlx, render->width * TAIL, render->height * TAIL);
+	const int width = (render->width + 2) * TAIL;
+	const int height = (render->height + 2) * TAIL;
+	render->mlx = mlx_init(width, height, "CUB3D", true);
+	if (render->mlx == NULL) 
+		return (ft_puterror(1, mlx_strerror(mlx_errno)));
+	render->image = mlx_new_image(render->mlx, width, height);
 	if (!render->image || (mlx_image_to_window(render->mlx, render->image, 0, 0) < 0))
-			ft_puterror(2, "mlx_image_to_window failed");
-
+			ft_puterror(1, mlx_strerror(mlx_errno));
 	//----------Drawing function----------
-	draw_full_image(render);
-	draw_mainFunc(render);
+	draw_map(render);
 
 	mlx_loop_hook(render->mlx, &keypress, render);
 	display_player_info(&render->player);
