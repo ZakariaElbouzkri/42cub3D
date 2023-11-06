@@ -103,24 +103,22 @@ void display_player_info(t_pos *player)
 	printf("turDir: %d\n", player->turnDir);
 	printf("walkDir: %d\n", player->walkDir);
 	printf("rot_angle: %f\n", player->angle);
-	// printf("speed: %f\n", player->speed);
-	// printf("rot_speed: %f\n", player->rot_speed);
 }
 
 void update_player(t_render **rend)
 {
 	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_W))
-		(*rend)->player.y -= 1;
+		(*rend)->player.y += sin((*rend)->player.angle) * SPEED;	
 	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_S))
-		(*rend)->player.y += 1;
+		(*rend)->player.y -= sin((*rend)->player.angle) * SPEED;	
 	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_A))
-		(*rend)->player.x -= 1;
+		(*rend)->player.x += cos((*rend)->player.angle) * SPEED;
 	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_D))
-		(*rend)->player.x += 1;
+		(*rend)->player.x -= cos((*rend)->player.angle) * SPEED;
 	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_RIGHT))
-		printf("key RIGHT\n");
+		(*rend)->player.angle += 0.05;
 	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_LEFT))
-		printf("key LEFT\n");
+		(*rend)->player.angle -=  0.05;
 	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_ESCAPE))
 		exit(1);
 }
@@ -137,20 +135,27 @@ void keypress(void *ptr)
 	const int y = mlx_is_key_down(rend->mlx, MLX_KEY_W) * -SPEED + mlx_is_key_down(rend->mlx, MLX_KEY_S) * SPEED;
 	const double rot = mlx_is_key_down(rend->mlx, MLX_KEY_LEFT) * -0.05 + mlx_is_key_down(rend->mlx, MLX_KEY_RIGHT) * 0.05;
 	rend->player.angle += rot;
-	printf("%f\n", rend->player.angle);
-	if (x != 0 || y != 0)
+	if (y != 0)
 	{
-		if (rend->map[(rend->player.y + y) / TAIL][(rend->player.x + x) / TAIL] == '1')
-			return ;
-		rend->player.x += x * cos(rend->player.angle);
-		rend->player.y += y * sin(rend->player.angle);
+		// if (rend->map[(rend->player.y + y) / TAIL][(rend->player.x + x) / TAIL] == '1')
+		// 	return ;
+		printf("X: %d Y: %d\n", x, y);
+		if (y < 0)
+		{
+			rend->player.x += cos(rend->player.angle) * SPEED;
+			rend->player.y += sin(rend->player.angle) * SPEED;
+		}
+		else
+		{
+			rend->player.x += cos(rend->player.angle) * -SPEED;
+			rend->player.y += sin(rend->player.angle) * -SPEED;
+		}
 	}
 	// mlx_delete_image(rend->mlx, rend->image);
 	// rend->image = mlx_new_image(rend->mlx, rend->width * TAIL, rend->height * TAIL);
 	// mlx_image_to_window(rend->mlx, rend->image, 0, 0);
-	draw_map(rend);
 	// update_player(&rend);
-	// draw_player(rend);
+	draw_map(rend);
 }
 
 void	render_game(t_render *render)
