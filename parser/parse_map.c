@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:35:13 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/04 00:46:03 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/06 03:28:53 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ bool	fill_player_pos(t_parse *prs, int x, int y)
 
 	if (a)
 		return (false);
-	prs->player.x = x;
-	prs->player.y = y;
-	prs->player.angle = M_PI;
+	prs->player.x = (x  * TAIL) + (TAIL/2);
+	prs->player.y = (y  * TAIL) + (TAIL/2);
+	prs->player.angle = (prs->map[y][x] == 'N') * N  + (prs->map[y][x] == 'S') * S 
+		+ (prs->map[y][x] == 'E') * E + (prs->map[y][x] == 'W') * W;
 	return (++a);
 }
 

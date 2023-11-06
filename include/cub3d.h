@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/04 03:37:21 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/06 04:31:10 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@
 # include <MLX42.h>
 
 #define TAIL 32
+#define SPEED 4
+#define ROT 0.05
+
+#define N 3 * M_PI / 2
+#define S M_PI / 2
+#define W M_PI
+#define E 0
 
 enum {
 	DOWN = 126,
@@ -46,11 +53,9 @@ typedef struct s_lst {
 typedef struct s_pos {
 	int x;
 	int y;
-	int turnDir;
-	int walkDir;
+	int	turnDir;
+	int	walkDir;
 	double angle;
-	double speed;
-	double rot_speed;
 }	t_pos;
 
 typedef struct s_parse {
@@ -103,6 +108,8 @@ bool	ft_empty(char *str);
 void	lst_delone(t_lst **lst, t_lst *node);
 void	lst_clear(t_lst **lst);
 
+// temporare
+void draw_player(t_render *render);
 
 
 
