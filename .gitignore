@@ -3,8 +3,7 @@
 *.out
 *.a
 cub3D
-*test*
-*.png
+*test*™
 mlxflags
 mk
 *.cub

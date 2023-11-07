@@ -4,6 +4,7 @@
 		"__locale": "c",
 		"locale": "c",
 		"stdbool.h": "c",
-		"mlx42.h": "c"
+		"mlx42.h": "c",
+		"sstream": "c"
 	}
 }
