@@ -6,13 +6,13 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 04:00:32 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/10/11 00:04:00 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/07 22:48:46 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-int	ft_strchr(char *s, char c)
+int	ft_strchr(const char *s, char c)
 {
 	int	i;
 
