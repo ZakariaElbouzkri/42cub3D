@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:20:27 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/06 04:48:42 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/07 08:12:04 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,6 @@ void draw_square(mlx_image_t	*g_img, int x, int y, int color)
 		while (++i < TAIL)
 			mlx_put_pixel(g_img, x + i, y + j, color);
 	}
-	// int newX;
-	// int newY;
-
-	// newY = y*TAIL;
-	
-	// while (newY < TAIL)
-	// {
-	// 	newX = x*TAIL;
-	// 	while(newX < TAIL)
-	// 	{
-	// 			mlx_put_pixel(g_img, newX, newY, color);
-	// 		newX++;
-	// 	}
-	// 	newY++;
-	// }
 }
 
 
@@ -98,30 +83,30 @@ void draw_player(t_render *render)
 void display_player_info(t_pos *player)
 {
 	printf("\n----------Player_infos----------\n");
-	printf("pX: %d\n", player->x);
-	printf("pY: %d\n", player->y);
+	printf("pX: %f\n", player->x);
+	printf("pY: %f\n", player->y);
 	printf("turDir: %d\n", player->turnDir);
 	printf("walkDir: %d\n", player->walkDir);
 	printf("rot_angle: %f\n", player->angle);
 }
 
-void update_player(t_render **rend)
-{
-	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_W))
-		(*rend)->player.y += sin((*rend)->player.angle) * SPEED;	
-	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_S))
-		(*rend)->player.y -= sin((*rend)->player.angle) * SPEED;	
-	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_A))
-		(*rend)->player.x += cos((*rend)->player.angle) * SPEED;
-	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_D))
-		(*rend)->player.x -= cos((*rend)->player.angle) * SPEED;
-	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_RIGHT))
-		(*rend)->player.angle += 0.05;
-	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_LEFT))
-		(*rend)->player.angle -=  0.05;
-	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_ESCAPE))
-		exit(1);
-}
+// void update_player(t_render **rend)
+// {
+// 	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_W))
+// 		(*rend)->player.y += sin((*rend)->player.angle) * SPEED;	
+// 	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_S))
+// 		(*rend)->player.y -= sin((*rend)->player.angle) * SPEED;	
+// 	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_A))
+// 		(*rend)->player.x += cos((*rend)->player.angle) * SPEED;
+// 	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_D))
+// 		(*rend)->player.x -= cos((*rend)->player.angle) * SPEED;
+// 	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_RIGHT))
+// 		(*rend)->player.angle += 0.05;
+// 	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_LEFT))
+// 		(*rend)->player.angle -=  0.05;
+// 	if (mlx_is_key_down((*rend)->mlx, MLX_KEY_ESCAPE))
+// 		exit(1);
+// }
 
 
 void keypress(void *ptr)
@@ -135,26 +120,13 @@ void keypress(void *ptr)
 	const int y = mlx_is_key_down(rend->mlx, MLX_KEY_W) * -SPEED + mlx_is_key_down(rend->mlx, MLX_KEY_S) * SPEED;
 	const double rot = mlx_is_key_down(rend->mlx, MLX_KEY_LEFT) * -0.05 + mlx_is_key_down(rend->mlx, MLX_KEY_RIGHT) * 0.05;
 	rend->player.angle += rot;
-	if (y != 0)
+	if (x != 0)
+		rend->player.x += x;
+	else if (y != 0)
 	{
-		// if (rend->map[(rend->player.y + y) / TAIL][(rend->player.x + x) / TAIL] == '1')
-		// 	return ;
-		printf("X: %d Y: %d\n", x, y);
-		if (y < 0)
-		{
-			rend->player.x += cos(rend->player.angle) * SPEED;
-			rend->player.y += sin(rend->player.angle) * SPEED;
-		}
-		else
-		{
-			rend->player.x += cos(rend->player.angle) * -SPEED;
-			rend->player.y += sin(rend->player.angle) * -SPEED;
-		}
+		rend->player.x += cos(rend->player.angle) * ((y < 0) * SPEED + (y > 0) * -SPEED);
+		rend->player.y += sin(rend->player.angle) * ((y < 0) * SPEED + (y > 0) * -SPEED);
 	}
-	// mlx_delete_image(rend->mlx, rend->image);
-	// rend->image = mlx_new_image(rend->mlx, rend->width * TAIL, rend->height * TAIL);
-	// mlx_image_to_window(rend->mlx, rend->image, 0, 0);
-	// update_player(&rend);
 	draw_map(rend);
 }
 
