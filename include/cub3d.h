@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/06 04:31:10 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/07 08:11:52 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ typedef struct s_lst {
 } t_lst;
 
 typedef struct s_pos {
-	int x;
-	int y;
+	double x;
+	double y;
 	int	turnDir;
 	int	walkDir;
 	double angle;
