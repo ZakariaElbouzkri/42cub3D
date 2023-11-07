@@ -6,54 +6,27 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 21:22:22 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/10/11 00:04:00 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/07 23:34:19 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-int	check_forward(char c, char *set)
+
+char	*ft_strtrim(const char *str, const char *set)
 {
-	int	i;
+	int	start;
+	int	end;
 
-	i = 0;
-	while (set[i])
-	{
-		if (set[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	check_backward(char c, char *set)
-{
-	int	len;
-
-	len = (int)ft_strlen(set);
-	len = len -1;
-	while (len >= 0)
-	{
-		if (set[len] == c)
-			return (1);
-		len--;
-	}
-	return (0);
-}
-
-char	*ft_strtrim(char const *s1, char const *set)
-{
-	size_t	i;
-	size_t	j;
-
-	if (!s1 || !set)
+	if (!str || !set)
 		return (NULL);
-	i = 0;
-	j = ft_strlen(s1);
-	while (check_forward(s1[i], (char *)set))
-		i++;
-	j--;
-	while (check_backward(s1[j], (char *)set))
-		j--;
-	return (ft_substr(s1, i, j - i + 1));
+	if (!*str)
+		return (ft_strdup(""));
+	start = 0;
+	end	  = ft_strlen(str) - 1;
+	while (start <= end && ft_strchr(set, str[start]))
+		start++;
+	while (end && ft_strrchr(set, str[end]))
+		end--;
+	return (ft_substr(str, start, end - start + 1));
 }
