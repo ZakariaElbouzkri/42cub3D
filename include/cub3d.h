@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/07 08:11:52 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/07 23:33:56 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@ typedef struct s_parse {
 }   t_parse;
 
 typedef struct s_render {
-	mlx_t	*mlx;
+	mlx_t		*mlx;
 	mlx_image_t	*image;
-	char	**map;
-	char	*textures[4];
-	int		colors[2];
-	t_pos	player;
-	int		width;
-	int		height;
+	char		**map;
+	char		*paths[4];
+	mlx_texture_t	*tuxtures[4];
+	int			colors[2];
+	t_pos		player;
+	int			width;
+	int			height;
 } t_render;
-
 
 // parser functions
 bool	parsed(char *filename, t_parse *prs);
@@ -103,15 +103,19 @@ void	render_game(t_render *render);
 int	ft_max(int a, int b);
 void	free_t_parse(t_parse *parse);
 void	free_map(char **ptr);
-int	get_max_width(t_lst *lst);
-bool	ft_empty(char *str);
+int		get_max_width(t_lst *lst);
+bool	ft_empty(const char *str);
 void	lst_delone(t_lst **lst, t_lst *node);
 void	lst_clear(t_lst **lst);
+void	clear_t_render(t_render *rend, const char *err);
 
 // temporare
 void draw_player(t_render *render);
 
-
+void	draw_square(mlx_image_t	*g_img, int x, int y, int color);
+void draw_map(t_render *render);
+void	draw_ray(t_render *rend);
+void draw_player(t_render *render);
 
 
 #endif

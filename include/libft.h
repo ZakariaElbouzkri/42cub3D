@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 02:26:09 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/10/16 18:28:29 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/07 22:51:56 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	ft_putendl_fd(char *s, int fd);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-int		ft_strchr(char *s, char c);
+int		ft_strchr(const char *s, char c);
 char	*ft_strjoin_std(char const *s1, char const *s2);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strdup(const char *src);
-char	*ft_strtrim(char const *s1, char const *set);
+char	*ft_strtrim(const char *str, const char *set);
 char	*ft_itoa(int n);
 char	**ft_split(char const *s, char c);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
