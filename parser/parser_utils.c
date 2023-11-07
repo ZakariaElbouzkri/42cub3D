@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:34:23 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/04 01:02:33 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/07 22:57:53 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void	free_t_parse(t_parse *parse)
 void	free_map(char **ptr)
 {
 	int idx;
-	if (!ptr)
-		return;
-	idx = 0;
-	while (ptr[idx])
-		free(ptr[idx++]);
+
+	idx = -1;
+	while (ptr && ptr[++idx])
+		free(ptr[idx]);
 	free(ptr);
+	ptr = NULL;
 }
 
 
@@ -49,7 +49,7 @@ int	get_max_width(t_lst *lst)
 }
 
 
-bool	ft_empty(char *str)
+bool	ft_empty(const char *str)
 {
 	while (*str)
 	{

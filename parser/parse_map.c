@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:35:13 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/06 03:28:53 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/07 23:00:33 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ char	*copy_line(char const *src, int size)
 	char	*result;
 	int		idx;
 
+	if (ft_empty(src))
+		return (ft_puterror(1, "Empty line on map"), NULL);
 	result = ft_calloc(sizeof(char), size + 1);
 	if (!result)
 		return (NULL);

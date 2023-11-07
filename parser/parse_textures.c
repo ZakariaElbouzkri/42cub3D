@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:33:38 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/04 23:35:06 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/07 22:55:23 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ bool	add_texture(t_parse *prs, char *temp)
 bool	parser_textures(t_parse *prs)
 {
 	int		number_of_textures;
-	// t_token	id;
 	char	*temp;
 
 	number_of_textures = 0;
@@ -56,6 +55,11 @@ bool	parser_textures(t_parse *prs)
 	{
 		temp = ft_strtrim(prs->lst->data, "\n\t ");
 		lst_delone(&prs->lst, prs->lst);
+		if (!temp || !*temp)
+		{
+			free(temp);
+			continue;
+		}
 		prs->heigth--;
 		if ((temp && *temp) && !add_texture(prs, temp))
 			return (false);
