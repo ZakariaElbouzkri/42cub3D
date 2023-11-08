@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:20:27 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/07 23:32:43 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/08 00:37:44 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,15 @@ void	init_mlx_vars(t_render *rend)
 		clear_t_render(rend, mlx_strerror(mlx_errno));
 }
 
+// ###########################################
+
 
 void	render_game(t_render *render)
 {
+	for (int i=0; render->map[i]; i++)
+	{
+		printf("%s\n", render->map[i]);
+	}
 	// exit(0);
 	init_mlx_vars(render);
 	// //----------Drawing function----------
