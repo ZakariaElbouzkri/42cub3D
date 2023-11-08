@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 19:26:02 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/07 23:02:21 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/08 00:44:10 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,22 @@ void	pass_to_rendering(t_parse *prs)
 		prs->textures[idx] = NULL;
 	}
 	render.player = prs->player;
-	render.width = (prs->width + 2) * TAIL;
-	render.height = (prs->heigth + 2) * TAIL;
+	render.width = ((prs->width + 2) * TAIL);
+	render.height = ((prs->heigth + 2) * TAIL);
 	render_game(&render);
 }
 
-void print_map(t_parse parser)
-{
-	printf("NO : %s\n", parser.textures[NO - 1]);
-	printf("SO : %s\n", parser.textures[SO - 1]);
-	printf("WE : %s\n", parser.textures[WE - 1]);
-	printf("EA : %s\n", parser.textures[EA - 1]);
-	printf("Floor : 0x%X\n", parser.colors[0]);
-	printf("Ceilling : 0x%X\n", parser.colors[1]);
-	for (int i=0; parser.map[i]; i++)
-		printf("%s\n", parser.map[i]);
-}
+// void print_map(t_parse parser)
+// {
+// 	printf("NO : %s\n", parser.textures[NO - 1]);
+// 	printf("SO : %s\n", parser.textures[SO - 1]);
+// 	printf("WE : %s\n", parser.textures[WE - 1]);
+// 	printf("EA : %s\n", parser.textures[EA - 1]);
+// 	printf("Floor : 0x%X\n", parser.colors[0]);
+// 	printf("Ceilling : 0x%X\n", parser.colors[1]);
+// 	for (int i=0; parser.map[i]; i++)
+// 		printf("%s\n", parser.map[i]);
+// }
 
 void leaks() {
 	system("leaks cub3d");
@@ -71,7 +71,7 @@ int	main(int ac, char **av)
 	}
 	if (!parsed(av[1], &parser))
 		return (free_t_parse(&parser), 1);
-
+	
 	pass_to_rendering(&parser);
 	free_t_parse(&parser);
 	return (0);

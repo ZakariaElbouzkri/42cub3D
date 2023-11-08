@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:33:38 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/07 22:55:23 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/08 00:42:53 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,6 @@ bool	parser_textures(t_parse *prs)
 	{
 		temp = ft_strtrim(prs->lst->data, "\n\t ");
 		lst_delone(&prs->lst, prs->lst);
-		if (!temp || !*temp)
-		{
-			free(temp);
-			continue;
-		}
 		prs->heigth--;
 		if ((temp && *temp) && !add_texture(prs, temp))
 			return (false);
