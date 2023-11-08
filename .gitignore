@@ -3,7 +3,5 @@
 *.out
 *.a
 cub3D
-*test*™
+*test*
 mlxflags
-mk
-*.cub
