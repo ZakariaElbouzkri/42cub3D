@@ -60,7 +60,7 @@ void leaks() {
 int	main(int ac, char **av)
 {
 	t_parse	parser;
-	atexit(leaks);
+	// atexit(leaks);
 	ft_memset(&parser, 0, sizeof(t_parse));
 	parser.colors[0] = -1;
 	parser.colors[1] = -1;

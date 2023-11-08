@@ -36,6 +36,7 @@ void keypress(void *ptr)
 	rend->image = mlx_new_image(rend->mlx, rend->width, rend->height);
 	mlx_image_to_window(rend->mlx, rend->image, 0, 0);
 	draw_map(rend);
+	// castAllRays(rend);
 }
 
 bool	load_textures(t_render *rend)
@@ -95,11 +96,6 @@ void	init_mlx_vars(t_render *rend)
 
 void	render_game(t_render *render)
 {
-	for (int i=0; render->map[i]; i++)
-	{
-		printf("%s\n", render->map[i]);
-	}
-	// exit(0);
 	init_mlx_vars(render);
 	// //----------Drawing function----------
 	draw_map(render);

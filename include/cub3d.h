@@ -29,6 +29,8 @@
 #define SPEED 4
 #define ROT 0.05
 
+#define FOV 60
+
 #define N 3 * M_PI / 2
 #define S M_PI / 2
 #define W M_PI
@@ -115,7 +117,12 @@ void draw_player(t_render *render);
 void	draw_square(mlx_image_t	*g_img, int x, int y, int color);
 void draw_map(t_render *render);
 void	draw_ray(t_render *rend);
-void draw_player(t_render *render);
-
-
+void  draw_player(t_render *render);
+void  	castAllRays(t_render *rend);
+void	draw_line(t_render *rend, double rayAngle);
+double	deg_to_red(double degree);
+double find_1st_yIntercept(t_render *rend);
+double find_1st_xIntercept(t_render *rend, double rayAngle);
+double find_xStep(double rayAngle);
+int check_ifa_wall(t_render *rend, double rayAngle);
 #endif
