@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 19:26:02 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/08 00:44:10 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/10 14:53:33 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void leaks() {
 int	main(int ac, char **av)
 {
 	t_parse	parser;
-	atexit(leaks);
+	// atexit(leaks);
 	ft_memset(&parser, 0, sizeof(t_parse));
 	parser.colors[0] = -1;
 	parser.colors[1] = -1;

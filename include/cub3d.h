@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/07 23:33:56 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/10 15:16:01 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,22 @@
 # include <math.h>
 # include <MLX42.h>
 
-#define TAIL 32
-#define SPEED 4
-#define ROT 0.05
+#define TAIL 64.0
+#define SPEED 4.0
+#define ROT 0.02
 
-#define N 3 * M_PI / 2
-#define S M_PI / 2
+#define N (3*M_PI_2)
+#define S M_PI_2
 #define W M_PI
 #define E 0
 
-enum {
-	DOWN = 126,
-	UP = 127,
-	LEFT = 124,
-	RIGHT = 125
-};
+#define FOV M_PI / 3
+
+#define WIDTH  1024
+#define HEIGHT 620
+
+#define DIST_TO_WINDOW  (HEIGHT / 2) / tan(FOV/2)
+
 
 typedef enum s_token{
 	NON, NO, SO, WE, EA, F, C
@@ -53,8 +54,6 @@ typedef struct s_lst {
 typedef struct s_pos {
 	double x;
 	double y;
-	int	turnDir;
-	int	walkDir;
 	double angle;
 }	t_pos;
 
