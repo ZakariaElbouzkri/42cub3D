@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:32:06 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/10 16:46:11 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/10 20:11:34 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,10 @@ void	cast_rays(t_render *rend)
 
 bool	check_wall(t_render *rend, t_pos pos, int h)
 {
-	double pry = (h == 1 && sin(pos.angle) < 0) * (-1);
-	double prx = (h != 1 && cos(pos.angle) < 0) * (-1);
-	if (rend->map[(int)((pos.y + pry) / TAIL)][(int)((pos.x + prx) / TAIL)] == '1'
-		|| rend->map[(int)((pos.y + pry) / TAIL)][(int)((pos.x + prx) / TAIL)] == ' ')
-		return (true);
-	if (rend->map[(int)((pos.y + pry) / TAIL)][(int)((pos.x + prx) / TAIL)] == '1'
-		|| rend->map[(int)((pos.y + pry) / TAIL)][(int)((pos.x + prx) / TAIL)] == '1')
+	(void)h;
+	int x = (int)(pos.x / TAIL);
+	int y = (int)(pos.y / TAIL);
+	if (rend->map[y][x] == '1')
 		return (true);
 	return (false);
 }
@@ -50,16 +47,19 @@ double	get_intersection_h(t_render *rend, double ray)
 
 	pos.angle = ray;
 	ply = rend->player;
-	pos.y = floor((ply.y / TAIL)) * TAIL + (sin(ray) < 0) * (0.0) + (sin(ray) >= 0) * TAIL;
+	pos.y = floor((ply.y / TAIL)) * TAIL + (sin(ray) < 0) * (-0.0000001) + (sin(ray) >= 0) * TAIL;
 	pos.x = ply.x + (pos.y - ply.y) / tan(ray);
+
+	double ystep = (sin(ray) < 0) * -TAIL + (sin(ray) >= 0) * TAIL;
+	double xstep = ystep / tan(ray);
 	while (true)
 	{
 		if (pos.x < 0.0 || pos.y < 0.0 || pos.x > rend->width || pos.y > rend->height)
-			return (-1.0);
+			break;
 		if (check_wall(rend, pos, 1))
 			break;
-		pos.y += (sin(ray) < 0) * -TAIL + (sin(ray) >= 0) * TAIL;
-		pos.x += (pos.y - ply.y) / tan(ray);
+		pos.y += ystep;
+		pos.x += xstep;
 	}
 	return (sqrt(pow(pos.x - ply.x, 2) + pow(pos.y - ply.y, 2)));
 }
@@ -71,16 +71,18 @@ double	get_intersection_v(t_render *rend, double ray)
 
 	ply = rend->player;
 	pos.angle = ray;
-	pos.x = floor((ply.x / TAIL)) * TAIL + (cos(ray) < 0) * (0.0) + (cos(ray) >= 0) * TAIL;
+	pos.x = floor((ply.x / TAIL)) * TAIL + (cos(ray) < 0) * (-0.0000001) + (cos(ray) >= 0) * TAIL;
 	pos.y = ply.y + (pos.x - ply.x) * tan(ray);
+	double xstep = (cos(ray) < 0) * -TAIL + (cos(ray) >= 0) * TAIL;
+	double ystep = xstep * tan(ray);
 	while (true)
 	{
 		if (pos.x < 0.0 || pos.y < 0.0 || pos.x > rend->width || pos.y > rend->height)
-			return (-1.0);
+			break;
 		if (check_wall(rend, pos, 0))
 			break;
-		pos.x += (cos(ray) < 0) * -TAIL + (cos(ray) >= 0) * TAIL;
-		pos.y += (pos.x - ply.x) * tan(ray);
+		pos.x += xstep;
+		pos.y += ystep;
 	}
 	return (sqrt(pow(pos.x - ply.x, 2) + pow(pos.y - ply.y, 2)));
 }
