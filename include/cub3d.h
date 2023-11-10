@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/10 15:16:01 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:36:20 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,14 @@ void	lst_delone(t_lst **lst, t_lst *node);
 void	lst_clear(t_lst **lst);
 void	clear_t_render(t_render *rend, const char *err);
 
-// temporare
-void draw_player(t_render *render);
+// rendering
 
-void	draw_square(mlx_image_t	*g_img, int x, int y, int color);
-void draw_map(t_render *render);
-void	draw_ray(t_render *rend);
-void draw_player(t_render *render);
+void	cast_rays(t_render *rend);
+bool	check_wall(t_render *rend, t_pos pos, int h);
+double	get_intersection_h(t_render *rend, double ray);
+double	get_intersection_v(t_render *rend, double ray);
+double	get_closest_distance(double distance_h, double distance_v);
+void	draw_wall(t_render *render, double wall_height, int x);
 
 
 #endif

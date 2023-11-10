@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_game.c                                      :+:      :+:    :+:   */
+/*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:20:27 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/10 15:12:29 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:37:03 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void keypress(void *ptr)
 	mlx_delete_image(rend->mlx, rend->image);
 	rend->image = mlx_new_image(rend->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(rend->mlx, rend->image, 0, 0);
-	draw_map(rend);
+	cast_rays(rend);
 }
 
 bool	load_textures(t_render *rend)
@@ -111,7 +111,7 @@ void	render_game(t_render *render)
 	// exit(0);
 	init_mlx_vars(render);
 	// //----------Drawing function----------
-	draw_map(render);
+	cast_rays(render);
 	mlx_loop_hook(render->mlx, &keypress, render);
 	mlx_loop(render->mlx);
 	printf("Done\n");
