@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:20:27 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/10 16:37:03 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/10 20:23:47 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 
-void keypress(void *ptr)
+void	keypress(void *ptr)
 {
 	t_render *rend;
 
@@ -104,11 +104,6 @@ void	init_mlx_vars(t_render *rend)
 
 void	render_game(t_render *render)
 {
-	// for (int i=0; render->map[i]; i++)
-	// {
-	// 	printf("%s\n", render->map[i]);
-	// }
-	// exit(0);
 	init_mlx_vars(render);
 	// //----------Drawing function----------
 	cast_rays(render);
