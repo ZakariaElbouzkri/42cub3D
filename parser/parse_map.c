@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:35:13 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/08 00:41:47 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/10 14:53:45 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*copy_line(char const *src, int size)
 	if (!result)
 		return (NULL);
 	idx = -1;
-	result[++idx] = '#';
+	result[++idx] = ' ';
 	while (*src)
 	{
 		if (!ft_strchr("10NSEW \t\v", *src))
@@ -95,11 +95,11 @@ char	*copy_line(char const *src, int size)
 				ft_puterror(1, "Invalid character found in map"), NULL);
 		result[++idx] = *src;
 		if (ft_strchr("\t\v ", *src))
-			result[idx] = '#';
+			result[idx] = ' ';
 		src++;
 	}
 	while (++idx < size)
-		result[idx] = '#';
+		result[idx] = ' ';
 	return (result);
 }
 
@@ -120,7 +120,7 @@ bool	parse_map(t_parse *prs)
 		return (ft_puterror(1, strerror(errno)), false);
 	idx = -1;
 	prs->width = get_max_width(prs->lst);
-	prs->map[++idx] = generate_border('#', prs->width + 2);
+	prs->map[++idx] = generate_border(' ', prs->width + 2);
 	while (prs->lst)
 	{
 		prs->map[++idx] = copy_line(prs->lst->data, prs->width + 2);
@@ -128,7 +128,7 @@ bool	parse_map(t_parse *prs)
 			return (false);
 		lst_delone(&prs->lst, prs->lst);
 	}
-	prs->map[++idx] = generate_border('#', prs->width + 2);
+	prs->map[++idx] = generate_border(' ', prs->width + 2);
 	return (true);
 }
 
