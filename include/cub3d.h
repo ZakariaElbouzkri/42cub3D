@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/10 16:56:40 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/10 20:14:26 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,20 @@
 
 #define TAIL 64.0
 #define SPEED 4.0
-#define ROT 0.05
+#define ROT 0.02
 
-#define N 3 * M_PI / 2.0
-#define S M_PI / 2.0
+#define N (3*M_PI_2)
+#define S M_PI_2
 #define W M_PI
 #define E 0.0
 
-#define FOV	M_PI / 3.0
-#define HALF_FOV M_PI / 6.0
-#define WINDOW_WIDTH 1024.0
-#define WINDOW_HEIGHT 620.0
-#define RAY_STEP (FOV / WINDOW_WIDTH)
+#define FOV M_PI / 3
+
+#define WIDTH  1024
+#define HEIGHT 620
+
+#define DIST_TO_WINDOW  (HEIGHT / 2) / tan(FOV/2)
+
 
 typedef enum s_token{
 	NON, NO, SO, WE, EA, F, C
@@ -52,8 +54,6 @@ typedef struct s_lst {
 typedef struct s_pos {
 	double x;
 	double y;
-	int	turnDir;
-	int	walkDir;
 	double angle;
 }	t_pos;
 
@@ -108,13 +108,14 @@ void	lst_delone(t_lst **lst, t_lst *node);
 void	lst_clear(t_lst **lst);
 void	clear_t_render(t_render *rend, const char *err);
 
-// temporare
-void draw_player(t_render *render);
+// rendering
 
-void	draw_square(mlx_image_t	*g_img, int x, int y, int color);
-void draw_map(t_render *render);
-void	draw_ray(t_render *rend);
-void draw_player(t_render *render);
+void	cast_rays(t_render *rend);
+bool	check_wall(t_render *rend, t_pos pos, int h);
+double	get_intersection_h(t_render *rend, double ray);
+double	get_intersection_v(t_render *rend, double ray);
+double	get_closest_distance(double distance_h, double distance_v);
+void	draw_wall(t_render *render, double wall_height, int x);
 
 
 #endif
