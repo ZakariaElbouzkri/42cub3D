@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/07 23:33:56 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:56:40 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,20 @@
 # include <math.h>
 # include <MLX42.h>
 
-#define TAIL 32
-#define SPEED 4
+#define TAIL 64.0
+#define SPEED 4.0
 #define ROT 0.05
 
-#define N 3 * M_PI / 2
-#define S M_PI / 2
+#define N 3 * M_PI / 2.0
+#define S M_PI / 2.0
 #define W M_PI
-#define E 0
+#define E 0.0
 
-enum {
-	DOWN = 126,
-	UP = 127,
-	LEFT = 124,
-	RIGHT = 125
-};
+#define FOV	M_PI / 3.0
+#define HALF_FOV M_PI / 6.0
+#define WINDOW_WIDTH 1024.0
+#define WINDOW_HEIGHT 620.0
+#define RAY_STEP (FOV / WINDOW_WIDTH)
 
 typedef enum s_token{
 	NON, NO, SO, WE, EA, F, C
@@ -59,10 +58,10 @@ typedef struct s_pos {
 }	t_pos;
 
 typedef struct s_parse {
-	t_lst    *lst;
-	char    **map;
-	char    *textures[4];
-	int     colors[2];
+	t_lst	*lst;
+	char	**map;
+	char	*textures[4];
+	int		colors[2];
 	int		heigth;
 	int		width;
 	t_pos	player;
