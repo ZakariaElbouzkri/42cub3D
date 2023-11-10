@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:26:15 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/08 00:20:55 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/10 22:12:21 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ bool	parsed(char *filename, t_parse *prs)
 		return (ft_puterror(2, filename, strerror(errno)), false);
 	read_map(&prs->lst, fd, &prs->heigth);
 	close(fd);
+	if (!prs->lst)
+		return (ft_puterror(1, "Empty map"), false);
 	if (!parser_textures(prs) || !parse_map(prs))
 		return (false);
 	return (map_is_valid(prs->map, prs));
