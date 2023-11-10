@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 19:26:02 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/10 14:53:33 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:48:08 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,6 @@ void	pass_to_rendering(t_parse *prs)
 	render.height = ((prs->heigth + 2) * TAIL);
 	render_game(&render);
 }
-
-// void print_map(t_parse parser)
-// {
-// 	printf("NO : %s\n", parser.textures[NO - 1]);
-// 	printf("SO : %s\n", parser.textures[SO - 1]);
-// 	printf("WE : %s\n", parser.textures[WE - 1]);
-// 	printf("EA : %s\n", parser.textures[EA - 1]);
-// 	printf("Floor : 0x%X\n", parser.colors[0]);
-// 	printf("Ceilling : 0x%X\n", parser.colors[1]);
-// 	for (int i=0; parser.map[i]; i++)
-// 		printf("%s\n", parser.map[i]);
-// }
 
 void leaks() {
 	system("leaks cub3d");
