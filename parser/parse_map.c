@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:35:13 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/10 14:53:45 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/10 22:14:58 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	serounded(char **map, int x, int y)
 	n = -1;
 	while (++n < 4)
 	{
-		if (map[y + dx[n]][x + dy[n]] == '#')
+		if (map[y + dx[n]][x + dy[n]] == ' ')
 			return (false);
 	}
 	return (true);

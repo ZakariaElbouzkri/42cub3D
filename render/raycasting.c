@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:32:06 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/10 20:25:01 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/10 22:07:50 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,19 @@ void	draw_wall(t_render *render, double wall_height, int x)
 	int start_y = ((HEIGHT / 2) - (wall_height / 2));
 	if (start_y < 0)
 		start_y = 0;
+	int colors = -1;
+	while (++colors < start_y){
+		mlx_put_pixel(render->image, x, colors, render->colors[0]);
+	}
 	int i = 0;
 	while (i < wall_height && i < HEIGHT)
 	{
 		mlx_put_pixel(render->image, x, start_y, 0xFFFF00FF);
 		start_y++;
 		i++;
+	}
+	while (start_y++ < HEIGHT){
+		mlx_put_pixel(render->image, x, start_y, render->colors[1]);
 	}
 }
 
