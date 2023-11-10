@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:32:06 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/10 20:11:34 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/10 20:25:01 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	cast_rays(t_render *rend)
 	{
 		distance = get_closest_distance(get_intersection_v(rend, start_angle),
 			get_intersection_h(rend, start_angle));
+		distance = distance * cos(start_angle - rend->player.angle);
 		wall_height = TAIL * DIST_TO_WINDOW / distance;
 		draw_wall(rend, wall_height, x);
 		x++;
@@ -30,9 +31,8 @@ void	cast_rays(t_render *rend)
 	}
 }
 
-bool	check_wall(t_render *rend, t_pos pos, int h)
+bool	check_wall(t_render *rend, t_pos pos)
 {
-	(void)h;
 	int x = (int)(pos.x / TAIL);
 	int y = (int)(pos.y / TAIL);
 	if (rend->map[y][x] == '1')
@@ -56,7 +56,7 @@ double	get_intersection_h(t_render *rend, double ray)
 	{
 		if (pos.x < 0.0 || pos.y < 0.0 || pos.x > rend->width || pos.y > rend->height)
 			break;
-		if (check_wall(rend, pos, 1))
+		if (check_wall(rend, pos))
 			break;
 		pos.y += ystep;
 		pos.x += xstep;
@@ -79,7 +79,7 @@ double	get_intersection_v(t_render *rend, double ray)
 	{
 		if (pos.x < 0.0 || pos.y < 0.0 || pos.x > rend->width || pos.y > rend->height)
 			break;
-		if (check_wall(rend, pos, 0))
+		if (check_wall(rend, pos))
 			break;
 		pos.x += xstep;
 		pos.y += ystep;

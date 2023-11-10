@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/10 20:14:26 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/10 20:25:32 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	clear_t_render(t_render *rend, const char *err);
 // rendering
 
 void	cast_rays(t_render *rend);
-bool	check_wall(t_render *rend, t_pos pos, int h);
+bool	check_wall(t_render *rend, t_pos pos);
 double	get_intersection_h(t_render *rend, double ray);
 double	get_intersection_v(t_render *rend, double ray);
 double	get_closest_distance(double distance_h, double distance_v);
