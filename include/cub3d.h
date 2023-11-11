@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/10 16:36:20 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/11 10:55:29 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include <MLX42.h>
 
 #define TAIL 64.0
-#define SPEED 4.0
-#define ROT 0.02
+#define SPEED 5.0
+#define ROT 0.04
 
 #define N (3*M_PI_2)
 #define S M_PI_2
@@ -54,6 +54,8 @@ typedef struct s_lst {
 typedef struct s_pos {
 	double x;
 	double y;
+	double	xstep;
+	double	ystep;
 	double angle;
 }	t_pos;
 
@@ -111,10 +113,9 @@ void	clear_t_render(t_render *rend, const char *err);
 // rendering
 
 void	cast_rays(t_render *rend);
-bool	check_wall(t_render *rend, t_pos pos, int h);
+bool	check_wall(t_render *rend, t_pos ray);
 double	get_intersection_h(t_render *rend, double ray);
 double	get_intersection_v(t_render *rend, double ray);
-double	get_closest_distance(double distance_h, double distance_v);
 void	draw_wall(t_render *render, double wall_height, int x);
 
 
