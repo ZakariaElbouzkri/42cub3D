@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/11 10:55:29 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:30:20 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ char	*copy_line(char const *src, int size);
 bool	parse_map(t_parse *prs);
 
 bool	valid_rgb(char *str, int *color);
-t_token	get_id(char c1, char c2);
+t_token	get_id(char c1, char c2, char c3);
 bool	parser_textures(t_parse *prs);
-
+int		convert_to_hex(int r, int g, int b);
 
 // rendering
 void	render_game(t_render *render);

@@ -6,13 +6,11 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:32:06 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/11 10:25:00 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:36:00 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
-
 
 bool	check_wall(t_render *rend, t_pos ray)
 {
@@ -79,7 +77,7 @@ void	draw_wall(t_render *render, double wall_height, int x)
 		mlx_put_pixel(render->image, x, itr, render->colors[1]);
 	itr = -1;
 	while (++itr < wall_height && itr < HEIGHT)
-		mlx_put_pixel(render->image, x, start_y++, 0xFFFF00FF);
+		mlx_put_pixel(render->image, x, start_y++, convert_to_hex(200, 189, 29));
 	while (start_y < HEIGHT)
 		mlx_put_pixel(render->image, x, start_y++, render->colors[0]);
 }
