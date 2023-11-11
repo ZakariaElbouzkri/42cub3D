@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 20:52:44 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/04 22:25:26 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:35:17 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,30 +35,26 @@ static bool check_color(char **rgb2)
 	return (true);
 }
 
-static bool valid(char *str)
+bool	valid(char *str, int n)
 {
-	int i = 0;
-	int flag = 0;
-	
-	while(str[i])
-	{
-		(str[i] == ',' && flag++);
-		if (!ft_isdigit(str[i]) && str[i] != ',')
-			return (false);
-		i++;
-	}
-	return (flag == 2);
+	if (!*str) return (n == 3);
+	if (!ft_isdigit(*str)) return (false);
+	while (*str && ft_isdigit(*str))
+		str++;
+	(*str == ',' && (n < 2) && str++);
+	return (valid(str, n + 1));
 }
-static int convert_to_hex(int r, int g, int b)
+
+int convert_to_hex(int r, int g, int b)
 {
-	return ((r & 255) << 16) + ((g & 255) << 8) + (b & 255);
+	return (r << 24 | g << 16 | b << 8 | 0xFF);
 }
 
 bool	valid_rgb(char *str, int *color)
 {
 	char **rgb2;
 
-	if (!str || !*str || !valid(str))
+	if (!str || !*str || !valid(str, 0))
 		return (free(str), false);
 	rgb2 = ft_split(str, ',');
 	free(str);
