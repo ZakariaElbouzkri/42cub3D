@@ -6,23 +6,22 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:35:13 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/11 09:55:28 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/12 11:24:32 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-
 bool	serounded(char **map, int x, int y)
 {
-	int n;
-	const int dx[4] = {-1, 0, 1, 0};
-	const int dy[4] = {0, 1, 0, -1};
+	int			n;
+	const int	dx[4] = {-1, 0, 1, 0};
+	const int	dy[4] = {0, 1, 0, -1};
 
 	n = -1;
 	while (++n < 4)
 	{
-		if (map[y + dx[n]][x + dy[n]] == '#')
+		if (map[y + dx[n]][x + dy[n]] == ' ')
 			return (false);
 	}
 	return (true);
@@ -30,7 +29,7 @@ bool	serounded(char **map, int x, int y)
 
 bool	fill_player_pos(t_parse *prs, int x, int y)
 {
-	static int a;
+	static int	a;
 
 	if (a)
 		return (false);
@@ -47,7 +46,6 @@ bool	map_is_valid(char **map, t_parse *prs)
 	int	y;
 
 	y = 0;
-	(void)prs;
 	while (map[++y])
 	{
 		x = 0;
