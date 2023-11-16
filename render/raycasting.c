@@ -6,11 +6,26 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:32:06 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/10 22:07:50 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:36:00 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
+
+double	get_distance(t_render *rend, double ray_angle) {
+	double	distance_v;
+	double	distance_h;
+
+	distance_v = get_intersection_v(rend, ray_angle);
+	distance_h = get_intersection_h(rend, ray_angle);
+	if (distance_h < distance_v)
+		rend->hitv = 0;
+	else
+		rend->hitv = 1;
+		
+	// rend->hitv = (distance_v < distance_h);
+	return (fmin(distance_h, distance_v));
+}
 
 void	cast_rays(t_render *rend)
 {
@@ -21,8 +36,7 @@ void	cast_rays(t_render *rend)
 	int x = 0;
 	while (x < WIDTH)
 	{
-		distance = fmin(get_intersection_v(rend, start_angle), get_intersection_h(rend, start_angle));
-		is_hith_or_hitv(rend, get_intersection_h(rend, start_angle), get_intersection_v(rend, start_angle));
+		distance = get_distance(rend, start_angle);
 		distance = distance * cos(start_angle - rend->player.angle);
 		wall_height = TAIL * DIST_TO_WINDOW / distance;
 		rend->ray_angle = start_angle;
@@ -41,65 +55,70 @@ bool	check_wall(t_render *rend, t_pos pos)
 	return (false);
 }
 
-double	get_intersection_h(t_render *rend, double ray)
+double	get_intersection_h(t_render *rend, double angle)
 {
-	t_pos	pos;
-	t_pos	ply;
-
-	pos.angle = ray;
-	ply = rend->player;
-	pos.y = floor((ply.y / TAIL)) * TAIL + (sin(ray) < 0) * (-0.0000001) + (sin(ray) >= 0) * TAIL;
-	pos.x = ply.x + (pos.y - ply.y) / tan(ray);
-
-	double ystep = (sin(ray) < 0) * -TAIL + (sin(ray) >= 0) * TAIL;
-	double xstep = ystep / tan(ray);
-	while (true)
-	{
-		if (pos.x < 0.0 || pos.y < 0.0 || pos.x > rend->width || pos.y > rend->height)
-			break;
-		if (check_wall(rend, pos))
-			break;
-		pos.y += ystep;
-		pos.x += xstep;
-	}
-	rend->inter_posX = pos.y;
-	rend->inter_posY = pos.x;
-	return (sqrt(pow(pos.x - ply.x, 2) + pow(pos.y - ply.y, 2)));
-}
-
-double	get_intersection_v(t_render *rend, double ray)
-{
-	t_pos	pos;
+	t_pos	ray;
 	t_pos	ply;
 
 	ply = rend->player;
-	pos.angle = ray;
-	pos.x = floor((ply.x / TAIL)) * TAIL + (cos(ray) < 0) * (-0.0000001) + (cos(ray) >= 0) * TAIL;
-	pos.y = ply.y + (pos.x - ply.x) * tan(ray);
-	double xstep = (cos(ray) < 0) * -TAIL + (cos(ray) >= 0) * TAIL;
-	double ystep = xstep * tan(ray);
+	ray.y = floor((ply.y / TAIL)) * TAIL + (sin(angle) < 0) * (-0.0000001) + (sin(angle) >= 0) * TAIL;
+	ray.x = ply.x + (ray.y - ply.y) / tan(angle);
+	ray.ystep = (sin(angle) < 0) * -TAIL + (sin(angle) >= 0) * TAIL;
+	ray.xstep = ray.ystep / tan(angle);
 	while (true)
 	{
-		if (pos.x < 0.0 || pos.y < 0.0 || pos.x > rend->width || pos.y > rend->height)
+		if (ray.x < 0.0 || ray.y < 0.0 || ray.x > rend->width || ray.y > rend->height)
 			break;
-		if (check_wall(rend, pos))
+		if (check_wall(rend, ray))
 			break;
-		pos.x += xstep;
-		pos.y += ystep;
+		ray.y += ray.ystep;
+		ray.x += ray.xstep;
 	}
-	rend->inter_posX = pos.x;
-	rend->inter_posY = pos.y;
-	return (sqrt(pow(pos.x - ply.x, 2) + pow(pos.y - ply.y, 2)));
+	rend->inter_posX = ray.x;
+	rend->inter_posY = ray.y;
+	return (sqrt(pow(ray.x - ply.x, 2) + pow(ray.y - ply.y, 2)));
 }
 
-double	get_closest_distance(double distance_h, double distance_v)
+double	get_intersection_v(t_render *rend, double angle)
 {
-	if (distance_v == -1.0)
-		return (distance_h);
-	if (distance_h == -1.0)
-		return (distance_v);
-	return (fmin(distance_h, distance_v));
+	t_pos	ray;
+	t_pos	ply;
+
+	ply = rend->player;
+	ray.x = floor((ply.x / TAIL)) * TAIL + (cos(angle) < 0) * (-0.0000001) + (cos(angle) >= 0) * TAIL;
+	ray.y = ply.y + (ray.x - ply.x) * tan(angle);
+	ray.xstep = (cos(angle) < 0) * -TAIL + (cos(angle) >= 0) * TAIL;
+	ray.ystep = ray.xstep * tan(angle);
+	while (true)
+	{
+		if (ray.x < 0.0 || ray.y < 0.0 || ray.x > rend->width || ray.y > rend->height)
+			break;
+		if (check_wall(rend, ray))
+			break;
+		ray.x += ray.xstep;
+		ray.y += ray.ystep;
+	}
+	rend->inter_posX = ray.x;
+	rend->inter_posY = ray.y;
+	return (sqrt(pow(ray.x - ply.x, 2) + pow(ray.y - ply.y, 2)));
 }
+
+// void	draw_wall(t_render *render, double wall_height, int x)
+// {
+// 	int	start_y;
+// 	int	itr;
+
+// 	start_y = ((HEIGHT / 2) - (wall_height / 2));
+// 	start_y *= (start_y > 0);
+// 	itr = -1;
+// 	while (++itr < start_y)
+// 		mlx_put_pixel(render->image, x, itr, render->colors[1]);
+// 	itr = -1;
+// 	while (++itr < wall_height && itr < HEIGHT)
+// 		mlx_put_pixel(render->image, x, start_y++, convert_to_hex(200, 189, 29));
+// 	while (start_y < HEIGHT)
+// 		mlx_put_pixel(render->image, x, start_y++, render->colors[0]);
+// }
 
 void	draw_wall(t_render *render, double wall_height, int x)
 {
