@@ -8,34 +8,45 @@
 // 		rend->hitv = 1;
 // }
 
+unsigned int rgba(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
+}
+
 static unsigned int	my_pixel_put(mlx_texture_t *texture, int x, int y)
 {
-	unsigned char	*buf;
+	// unsigned char	*buf;
 	unsigned int color;
 	int line_len;
 
-	// if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-	// 	return (0);
 	line_len = texture->width * texture->bytes_per_pixel;
-	buf = texture->pixels + (y * line_len + x * texture->bytes_per_pixel);
-	color = *(unsigned int *)buf;
+	uint32_t r = texture->pixels[((y * line_len + x * texture->bytes_per_pixel) + 0)];
+	uint32_t g = texture->pixels[((y * line_len + x * texture->bytes_per_pixel) + 1)];
+	uint32_t b = texture->pixels[((y * line_len + x * texture->bytes_per_pixel) + 2)];
+	uint32_t a = texture->pixels[((y * line_len + x * texture->bytes_per_pixel) + 3)];
+	color = rgba(r, g, b, a);
 	return (color);
 }
 
 static unsigned int get_texture_offset(t_render *rend, double wall_height, int screen_y, mlx_texture_t *texture)
 {
 	int texture_y;
-	int texture_x;
+	int texture_x = 0;
 	unsigned int color;
 
-	texture_y = (HEIGHT / 2) - (wall_height /2);
+	texture_y = (HEIGHT / 2) - (wall_height / 2);
 	if (!rend->hitv)
-		texture_x = fmod(rend->inter_posX * texture->width/ TAIL, texture->width);
+		texture_x = fmod(rend->inter_posX * texture->width / (double)TAIL, texture->width);
 		// texture_x = ((rend->inter_posX - (int)rend->inter_posX)  / TAIL) * texture->width;
 		// texture_x = fmod(rend->inter_posX, texture->width) * texture->width /TAIL;
 		// texture_x = ((rend->inter_posX - (int)rend->inter_posX)  / (double)TAIL) * texture->width;
-	else
-		texture_x = fmod(rend->inter_posY * texture->width / TAIL, texture->width);
+	else if (rend->hitv)
+	{
+		// texture_x = fmod(rend->inter_posY * texture->width / (double)TAIL, texture->width);
+		texture_x = (int)rend->inter_posY % (int)TAIL;
+		texture_x = (texture_x * texture->width) / (int)TAIL;
+	}
+
 	texture_y = (screen_y - texture_y) * (texture->height / wall_height);
 	color = my_pixel_put(texture, texture_x, texture_y);
 	return (color);
