@@ -14,8 +14,8 @@ static unsigned int	my_pixel_put(mlx_texture_t *texture, int x, int y)
 	unsigned int color;
 	int line_len;
 
-	if (x < 0 || x >= WIDTH || y < 0 || y >=HEIGHT)
-		return (0);
+	// if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+	// 	return (0);
 	line_len = texture->width * texture->bytes_per_pixel;
 	buf = texture->pixels + (y * line_len + x * texture->bytes_per_pixel);
 	color = *(unsigned int *)buf;

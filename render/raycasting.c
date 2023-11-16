@@ -18,12 +18,12 @@ double	get_distance(t_render *rend, double ray_angle) {
 
 	distance_v = get_intersection_v(rend, ray_angle);
 	distance_h = get_intersection_h(rend, ray_angle);
-	if (distance_h < distance_v)
-		rend->hitv = 0;
-	else
-		rend->hitv = 1;
+	// if (distance_h < distance_v)
+	// 	rend->hitv = 0;
+	// else
+	// 	rend->hitv = 1;
 		
-	// rend->hitv = (distance_v < distance_h);
+	rend->hitv = (distance_v < distance_h);
 	return (fmin(distance_h, distance_v));
 }
 
