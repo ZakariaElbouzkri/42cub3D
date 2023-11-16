@@ -1,12 +1,12 @@
 #include <cub3d.h>
 
-void is_hith_or_hitv(t_render *rend,  double h_dist, double v_dist)
-{
-	if (h_dist < v_dist)
-		rend->hitv = 0;
-	else
-		rend->hitv = 1;
-}
+// void is_hith_or_hitv(t_render *rend,  double h_dist, double v_dist)
+// {
+// 	if (h_dist < v_dist)
+// 		rend->hitv = 0;
+// 	else
+// 		rend->hitv = 1;
+// }
 
 static unsigned int	my_pixel_put(mlx_texture_t *texture, int x, int y)
 {
@@ -30,8 +30,8 @@ static unsigned int get_texture_offset(t_render *rend, double wall_height, int s
 
 	texture_y = (HEIGHT / 2) - (wall_height /2);
 	if (!rend->hitv)
-		texture_x = ((rend->inter_posX - (int)rend->inter_posX)  / (double)TAIL) * texture->width;
-		// texture_x = fmod(rend->inter_posX * texture->width/ TAIL, texture->width);
+		texture_x = fmod(rend->inter_posX * texture->width/ TAIL, texture->width);
+		// texture_x = ((rend->inter_posX - (int)rend->inter_posX)  / TAIL) * texture->width;
 		// texture_x = fmod(rend->inter_posX, texture->width) * texture->width /TAIL;
 		// texture_x = ((rend->inter_posX - (int)rend->inter_posX)  / (double)TAIL) * texture->width;
 	else
@@ -49,7 +49,7 @@ unsigned int get_texture_color(t_render *rend, double wall_height, int screen_y)
 	color = 0xFFFF00FF;
 	if (!rend->hitv)
 	{
-		if (rend->ray_angle > M_PI)
+		if (sin(rend->ray_angle) < 0)
 		{
 			// printf("NO_RAY_ANGLE: %f\n", rend->ray_angle);
 			color = get_texture_offset(rend, wall_height, screen_y, rend->tuxtures[NO -1]);
@@ -62,7 +62,7 @@ unsigned int get_texture_color(t_render *rend, double wall_height, int screen_y)
 	}
 	else
 	{
-		if (rend->ray_angle < 0.5 * M_PI || rend->ray_angle > 1.5 * M_PI)
+		if (cos(rend->ray_angle) > 0)
 		{
 			// printf("EA_RAY_ANGLE: %f\n", rend->ray_angle);
 			color = get_texture_offset(rend, wall_height, screen_y, rend->tuxtures[EA -1]);

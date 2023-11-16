@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/10 20:25:32 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:30:20 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include <MLX42.h>
 
 #define TAIL 64.0
-#define SPEED 4.0
-#define ROT 0.02
+#define SPEED 5.0
+#define ROT 0.05
 
 #define N (3*M_PI_2)
 #define S M_PI_2
@@ -54,6 +54,8 @@ typedef struct s_lst {
 typedef struct s_pos {
 	double x;
 	double y;
+	double	xstep;
+	double	ystep;
 	double angle;
 }	t_pos;
 
@@ -93,9 +95,9 @@ char	*copy_line(char const *src, int size);
 bool	parse_map(t_parse *prs);
 
 bool	valid_rgb(char *str, int *color);
-t_token	get_id(char c1, char c2);
+t_token	get_id(char c1, char c2, char c3);
 bool	parser_textures(t_parse *prs);
-
+int		convert_to_hex(int r, int g, int b);
 
 // rendering
 void	render_game(t_render *render);
@@ -118,10 +120,8 @@ void	cast_rays(t_render *rend);
 bool	check_wall(t_render *rend, t_pos pos);
 double	get_intersection_h(t_render *rend, double ray);
 double	get_intersection_v(t_render *rend, double ray);
-double	get_closest_distance(double distance_h, double distance_v);
 void	draw_wall(t_render *render, double wall_height, int x);
 
 unsigned int get_texture_color(t_render *rend, double wall_height, int screen_y);
-void			is_hith_or_hitv(t_render *rend,  double h_dist, double v_dist);
 
 #endif

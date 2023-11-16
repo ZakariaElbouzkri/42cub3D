@@ -6,13 +6,13 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:33:38 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/08 00:42:53 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:15:37 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-t_token	get_id(char c1, char c2)
+t_token	get_id(char c1, char c2, char c3)
 {
 	int ans;
 
@@ -24,14 +24,16 @@ t_token	get_id(char c1, char c2)
 		((c1 == 'W') * WE) + ((c1 == 'E') * EA);
 	ans *= ((c1 == 'N' || c1 == 'S') * (c2 == 'O') + 
 		((c1 == 'W') * ( c2 == 'E')) + ((c1 == 'E') * (c2 == 'A')));
-	return (ans);
+	return (ans * ft_strchr("\t\v ", c3));
 }
 
 bool	add_texture(t_parse *prs, char *temp)
 {
 	t_token	id;
 
-	id = get_id(temp[0], temp[1]);
+	if (!temp[0] || !temp[1] || !temp[1])
+		return (ft_puterror(1, "Invalid identifier"), false);
+	id = get_id(temp[0], temp[1], temp[2]);
 	if (!id || (id < 5 && prs->textures[id - 1] != NULL)
 		|| (id > 4 && prs->colors[id - 5] != -1))
 		return (free(temp), ft_puterror(1, "Invalid identifier"), false);
