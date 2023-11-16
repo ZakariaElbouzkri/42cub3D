@@ -21,11 +21,11 @@ void	cast_rays(t_render *rend)
 	int x = 0;
 	while (x < WIDTH)
 	{
-		distance = get_closest_distance(get_intersection_v(rend, start_angle),
-			get_intersection_h(rend, start_angle));
+		distance = fmin(get_intersection_v(rend, start_angle), get_intersection_h(rend, start_angle));
 		is_hith_or_hitv(rend, get_intersection_h(rend, start_angle), get_intersection_v(rend, start_angle));
 		distance = distance * cos(start_angle - rend->player.angle);
 		wall_height = TAIL * DIST_TO_WINDOW / distance;
+		rend->ray_angle = start_angle;
 		draw_wall(rend, wall_height, x);
 		x++;
 		start_angle += (FOV / WIDTH);
@@ -58,14 +58,12 @@ double	get_intersection_h(t_render *rend, double ray)
 		if (pos.x < 0.0 || pos.y < 0.0 || pos.x > rend->width || pos.y > rend->height)
 			break;
 		if (check_wall(rend, pos))
-		{
-			rend->inter_posX = pos.x;
-			rend->inter_posY = pos.y;
 			break;
-		}
 		pos.y += ystep;
 		pos.x += xstep;
 	}
+	rend->inter_posX = pos.y;
+	rend->inter_posY = pos.x;
 	return (sqrt(pow(pos.x - ply.x, 2) + pow(pos.y - ply.y, 2)));
 }
 
@@ -85,14 +83,12 @@ double	get_intersection_v(t_render *rend, double ray)
 		if (pos.x < 0.0 || pos.y < 0.0 || pos.x > rend->width || pos.y > rend->height)
 			break;
 		if (check_wall(rend, pos))
-		{
-			rend->inter_posX = pos.x;
-			rend->inter_posY = pos.y;
 			break;
-		}
 		pos.x += xstep;
 		pos.y += ystep;
 	}
+	rend->inter_posX = pos.x;
+	rend->inter_posY = pos.y;
 	return (sqrt(pow(pos.x - ply.x, 2) + pow(pos.y - ply.y, 2)));
 }
 
