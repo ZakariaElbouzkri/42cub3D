@@ -22,7 +22,7 @@ static unsigned int	my_pixel_put(mlx_texture_t *texture, int x, int y)
 	return (color);
 }
 
-static unsigned int get_texture_offset(t_render *rend, double wall_height, double screen_y, mlx_texture_t *texture)
+static unsigned int get_texture_offset(t_render *rend, double wall_height, int screen_y, mlx_texture_t *texture)
 {
 	int texture_y;
 	int texture_x;
@@ -30,7 +30,9 @@ static unsigned int get_texture_offset(t_render *rend, double wall_height, doubl
 
 	texture_y = (HEIGHT / 2) - (wall_height /2);
 	if (!rend->hitv)
-		texture_x = fmod(rend->inter_posX * texture->width / TAIL, texture->width);
+		texture_x = ((rend->inter_posX - (int)rend->inter_posX)  / (double)TAIL) * texture->width;
+		// texture_x = fmod(rend->inter_posX * texture->width/ TAIL, texture->width);
+		// texture_x = fmod(rend->inter_posX, texture->width) * texture->width /TAIL;
 		// texture_x = ((rend->inter_posX - (int)rend->inter_posX)  / (double)TAIL) * texture->width;
 	else
 		texture_x = fmod(rend->inter_posY * texture->width / TAIL, texture->width);
@@ -39,7 +41,7 @@ static unsigned int get_texture_offset(t_render *rend, double wall_height, doubl
 	return (color);
 }
 
-unsigned int get_texture_color(t_render *rend, double wall_height, double screen_y)
+unsigned int get_texture_color(t_render *rend, double wall_height, int screen_y)
 {
 	unsigned int color;
 
@@ -48,16 +50,28 @@ unsigned int get_texture_color(t_render *rend, double wall_height, double screen
 	if (!rend->hitv)
 	{
 		if (rend->ray_angle > M_PI)
+		{
+			// printf("NO_RAY_ANGLE: %f\n", rend->ray_angle);
 			color = get_texture_offset(rend, wall_height, screen_y, rend->tuxtures[NO -1]);
+		}
 		else
+		{
+			// printf("SO_RAY_ANGLE: %f\n", rend->ray_angle);
 			color = get_texture_offset(rend, wall_height, screen_y, rend->tuxtures[SO -1]);
+		}
 	}
 	else
 	{
 		if (rend->ray_angle < 0.5 * M_PI || rend->ray_angle > 1.5 * M_PI)
+		{
+			// printf("EA_RAY_ANGLE: %f\n", rend->ray_angle);
 			color = get_texture_offset(rend, wall_height, screen_y, rend->tuxtures[EA -1]);
+		}
 		else
+		{
+			// printf("WE_RAY_ANGLE: %f\n", rend->ray_angle);
 			color = get_texture_offset(rend, wall_height, screen_y, rend->tuxtures[WE -1]);
+		}
 	}
 	return (color);
 }

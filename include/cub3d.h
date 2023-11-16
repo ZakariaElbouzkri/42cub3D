@@ -121,7 +121,7 @@ double	get_intersection_v(t_render *rend, double ray);
 double	get_closest_distance(double distance_h, double distance_v);
 void	draw_wall(t_render *render, double wall_height, int x);
 
-unsigned int	get_texture_color(t_render *rend, double wall_height, double screen_y);
+unsigned int get_texture_color(t_render *rend, double wall_height, int screen_y);
 void			is_hith_or_hitv(t_render *rend,  double h_dist, double v_dist);
 
 #endif
