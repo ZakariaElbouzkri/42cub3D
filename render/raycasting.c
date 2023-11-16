@@ -23,6 +23,7 @@ void	cast_rays(t_render *rend)
 	{
 		distance = get_closest_distance(get_intersection_v(rend, start_angle),
 			get_intersection_h(rend, start_angle));
+		is_hith_or_hitv(rend, get_intersection_h(rend, start_angle), get_intersection_v(rend, start_angle));
 		distance = distance * cos(start_angle - rend->player.angle);
 		wall_height = TAIL * DIST_TO_WINDOW / distance;
 		draw_wall(rend, wall_height, x);
@@ -57,7 +58,11 @@ double	get_intersection_h(t_render *rend, double ray)
 		if (pos.x < 0.0 || pos.y < 0.0 || pos.x > rend->width || pos.y > rend->height)
 			break;
 		if (check_wall(rend, pos))
+		{
+			rend->inter_posX = pos.x;
+			rend->inter_posY = pos.y;
 			break;
+		}
 		pos.y += ystep;
 		pos.x += xstep;
 	}
@@ -80,7 +85,11 @@ double	get_intersection_v(t_render *rend, double ray)
 		if (pos.x < 0.0 || pos.y < 0.0 || pos.x > rend->width || pos.y > rend->height)
 			break;
 		if (check_wall(rend, pos))
+		{
+			rend->inter_posX = pos.x;
+			rend->inter_posY = pos.y;
 			break;
+		}
 		pos.x += xstep;
 		pos.y += ystep;
 	}
@@ -98,6 +107,7 @@ double	get_closest_distance(double distance_h, double distance_v)
 
 void	draw_wall(t_render *render, double wall_height, int x)
 {
+	unsigned int color;
 	int start_y = ((HEIGHT / 2) - (wall_height / 2));
 	if (start_y < 0)
 		start_y = 0;
@@ -106,9 +116,11 @@ void	draw_wall(t_render *render, double wall_height, int x)
 		mlx_put_pixel(render->image, x, colors, render->colors[0]);
 	}
 	int i = 0;
+	color = 0xFFFF00FF;
 	while (i < wall_height && i < HEIGHT)
 	{
-		mlx_put_pixel(render->image, x, start_y, 0xFFFF00FF);
+		color = get_texture_color(render, wall_height, start_y);
+		mlx_put_pixel(render->image, x, start_y, color);
 		start_y++;
 		i++;
 	}
