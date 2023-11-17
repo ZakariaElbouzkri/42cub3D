@@ -75,7 +75,6 @@ double	get_intersection_h(t_render *rend, double angle)
 		ray.x += ray.xstep;
 	}
 	rend->inter_posX = ray.x;
-	rend->inter_posY = ray.y;
 	return (sqrt(pow(ray.x - ply.x, 2) + pow(ray.y - ply.y, 2)));
 }
 
@@ -98,7 +97,6 @@ double	get_intersection_v(t_render *rend, double angle)
 		ray.x += ray.xstep;
 		ray.y += ray.ystep;
 	}
-	rend->inter_posX = ray.x;
 	rend->inter_posY = ray.y;
 	return (sqrt(pow(ray.x - ply.x, 2) + pow(ray.y - ply.y, 2)));
 }
