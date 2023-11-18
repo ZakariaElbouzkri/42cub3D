@@ -48,8 +48,8 @@ void	cast_rays(t_render *rend)
 
 bool	check_wall(t_render *rend, t_pos pos)
 {
-	int x = (int)(pos.x / TAIL);
-	int y = (int)(pos.y / TAIL);
+	int x = (int)(pos.x / (int)TAIL);
+	int y = (int)(pos.y / (int)TAIL);
 	if (rend->map[y][x] == '1')
 		return (true);
 	return (false);
@@ -67,7 +67,7 @@ double	get_intersection_h(t_render *rend, double angle)
 	ray.xstep = ray.ystep / tan(angle);
 	while (true)
 	{
-		if (ray.x < 0.0 || ray.y < 0.0 || ray.x > rend->width || ray.y > rend->height)
+		if (ray.x < 0.0 || ray.y < 0.0 || ray.x >= rend->width || ray.y >= rend->height)
 			break;
 		if (check_wall(rend, ray))
 			break;
@@ -90,7 +90,7 @@ double	get_intersection_v(t_render *rend, double angle)
 	ray.ystep = ray.xstep * tan(angle);
 	while (true)
 	{
-		if (ray.x < 0.0 || ray.y < 0.0 || ray.x > rend->width || ray.y > rend->height)
+		if (ray.x < 0.0 || ray.y < 0.0 || ray.x >= rend->width || ray.y >= rend->height)
 			break;
 		if (check_wall(rend, ray))
 			break;
@@ -100,23 +100,6 @@ double	get_intersection_v(t_render *rend, double angle)
 	rend->inter_posY = ray.y;
 	return (sqrt(pow(ray.x - ply.x, 2) + pow(ray.y - ply.y, 2)));
 }
-
-// void	draw_wall(t_render *render, double wall_height, int x)
-// {
-// 	int	start_y;
-// 	int	itr;
-
-// 	start_y = ((HEIGHT / 2) - (wall_height / 2));
-// 	start_y *= (start_y > 0);
-// 	itr = -1;
-// 	while (++itr < start_y)
-// 		mlx_put_pixel(render->image, x, itr, render->colors[1]);
-// 	itr = -1;
-// 	while (++itr < wall_height && itr < HEIGHT)
-// 		mlx_put_pixel(render->image, x, start_y++, convert_to_hex(200, 189, 29));
-// 	while (start_y < HEIGHT)
-// 		mlx_put_pixel(render->image, x, start_y++, render->colors[0]);
-// }
 
 void	draw_wall(t_render *render, double wall_height, int x)
 {

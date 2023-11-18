@@ -1,13 +1,5 @@
 #include <cub3d.h>
 
-// void is_hith_or_hitv(t_render *rend,  double h_dist, double v_dist)
-// {
-// 	if (h_dist < v_dist)
-// 		rend->hitv = 0;
-// 	else
-// 		rend->hitv = 1;
-// }
-
 unsigned int rgba(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
@@ -15,7 +7,6 @@ unsigned int rgba(unsigned int r, unsigned int g, unsigned int b, unsigned int a
 
 static unsigned int	my_pixel_put(mlx_texture_t *texture, int x, int y)
 {
-	// unsigned char	*buf;
 	unsigned int color;
 	int line_len;
 
@@ -28,7 +19,7 @@ static unsigned int	my_pixel_put(mlx_texture_t *texture, int x, int y)
 	return (color);
 }
 
-static unsigned int get_texture_offset(t_render *rend, double wall_height, int screen_y, mlx_texture_t *texture)
+static unsigned int get_texture_offset(t_render *rend, double wall_height, int start_y, mlx_texture_t *texture)
 {
 	int texture_y;
 	int texture_x = 0;
@@ -46,7 +37,7 @@ static unsigned int get_texture_offset(t_render *rend, double wall_height, int s
 		// texture_x = (texture_x * texture->width) / TAIL;
 	}
 
-	texture_y = (screen_y - texture_y) * (texture->height / wall_height);
+	texture_y = (start_y - texture_y) * (texture->height / wall_height);
 	color = my_pixel_put(texture, texture_x, texture_y);
 	return (color);
 }
