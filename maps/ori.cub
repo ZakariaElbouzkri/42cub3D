@@ -1,9 +1,7 @@
-SO /Users/idryab/Desktop/cub42Master/textures/SO.png
-WE /Users/idryab/Desktop/cub42Master/textures/WE.png
-
-NO /Users/idryab/Desktop/cub42Master/textures/NO.png
-
-EA /Users/idryab/Desktop/cub42Master/textures/EA.png
+SO ./textures/SO.png
+WE ./textures/WE.png
+NO ./textures/NO.png
+EA ./textures/EA.png
 
 C 32,52,68
 

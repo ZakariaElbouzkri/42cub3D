@@ -4,4 +4,6 @@
 *.a
 cub3D
 *test*
-mlxflags
+*.vscode/
+maps/
+
