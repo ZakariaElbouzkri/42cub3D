@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:35:13 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/12 11:24:32 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/18 21:01:06 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ bool	map_is_valid(char **map, t_parse *prs)
 				return (ft_puterror(1, "Duplicated player"), false);
 		}
 	}
+	if (fill_player_pos(prs, 0, 0) == true)
+		return (ft_puterror(1, "Player Not Found"), false);
 	return (true);
 }
 
