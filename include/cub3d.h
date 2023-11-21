@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/11 12:30:20 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/21 22:53:02 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 #define FOV M_PI / 3
 
 #define WIDTH  1024
-#define HEIGHT 620
+#define HEIGHT 1024
 
 #define DIST_TO_WINDOW  (HEIGHT / 2) / tan(FOV/2)
 

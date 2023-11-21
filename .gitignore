@@ -6,3 +6,5 @@ maps/
 *.cub
 cub3D
 .DS_Store
+*.excalidraw
+*.cpp
