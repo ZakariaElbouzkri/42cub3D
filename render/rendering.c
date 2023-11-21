@@ -6,37 +6,45 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:20:27 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/15 23:20:02 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/21 03:15:31 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	move_player(t_render *rend)
+// void	exec_move(t_render *rend, double x, double y)
+// {
+// }
+
+int	move_player(t_render *rend)
 {
-	t_pos	player;
-	double		x;
-	double		y;
+	t_pos		player;
+	double		x = 0;
+	double		y = 0;
 
 	player = rend->player;
-	if (rend->player.xstep != 0
-		&& rend->map[(int)(player.y / TAIL)][(int)((player.x + player.xstep) / TAIL)] != '1')
-		player.x += player.xstep;
-	else if (rend->player.ystep != 0)
-	{
+	if (player.xstep != 0) {
+		x = player.x - (player.xstep * sin(player.angle));
+		y = player.y + (player.xstep * cos(player.angle));
+	}else if (player.xstep < 0) {
+		x = player.x + (player.xstep * sin(player.angle));
+		y = player.y - (player.xstep * cos(player.angle));
+	}
+	if (player.ystep != 0) {
 		x = player.x + (cos(player.angle) * player.ystep);
 		y = player.y + (sin(player.angle) * player.ystep);
-		if (rend->map[(int)(y / TAIL)][(int)(x / TAIL)] != '1'
-			&& rend->map[(int)((y + 3.0)/ TAIL)][(int)(x / TAIL)] != '1'
-			&& rend->map[(int)((y - 3.0)/ TAIL)][(int)(x / TAIL)] != '1'
-			&& rend->map[(int)(y/ TAIL)][(int)((x + 3.0) / TAIL)] != '1'
-			&& rend->map[(int)(y/ TAIL)][(int)((x - 3.0) / TAIL)] != '1')
-		{
-			player.x = x;
-			player.y = y;
-		}
+	}
+	if (rend->map[(int)(y / TAIL)][(int)(x / TAIL)] != '1'
+		&& rend->map[(int)((y + 3.0)/ TAIL)][(int)(x / TAIL)] != '1'
+		&& rend->map[(int)((y - 3.0)/ TAIL)][(int)(x / TAIL)] != '1'
+		&& rend->map[(int)(y/ TAIL)][(int)((x + 3.0) / TAIL)] != '1'
+		&& rend->map[(int)(y/ TAIL)][(int)((x - 3.0) / TAIL)] != '1')
+	{
+		player.x = x;
+		player.y = y;
 	}
 	rend->player = player;
+	return (0);
 }
 
 
@@ -53,7 +61,7 @@ void	keypress(void *ptr)
 		+ mlx_is_key_down(rend->mlx, MLX_KEY_W) * SPEED;
 	rend->player.angle += mlx_is_key_down(rend->mlx, MLX_KEY_LEFT) * -ROT
 		+ mlx_is_key_down(rend->mlx, MLX_KEY_RIGHT) * ROT;
-	move_player(rend);
+	((rend->player.xstep != 0 || rend->player.ystep != 0) && move_player(rend));
 	cast_rays(rend);
 }
 

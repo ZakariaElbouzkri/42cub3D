@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 19:26:02 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/10 16:48:08 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/22 00:38:56 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	pass_to_rendering(t_parse *prs)
 }
 
 void leaks() {
-	system("leaks cub3d");
+	system("leaks cub3D");
 }
 
 int	main(int ac, char **av)
 {
 	t_parse	parser;
-	// atexit(leaks);
+	atexit(leaks);
 	ft_memset(&parser, 0, sizeof(t_parse));
 	parser.colors[0] = -1;
 	parser.colors[1] = -1;

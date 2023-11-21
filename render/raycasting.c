@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:32:06 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/11 12:36:00 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/21 22:51:58 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,18 @@ double	get_distance(t_render *rend, double ray_angle) {
 
 	distance_v = get_intersection_v(rend, ray_angle);
 	distance_h = get_intersection_h(rend, ray_angle);
-	// if (distance_h < distance_v)
-	// 	rend->hitv = 0;
-	// else
-	// 	rend->hitv = 1;
-		
 	rend->hitv = (distance_v < distance_h);
 	return (fmin(distance_h, distance_v));
 }
 
 void	cast_rays(t_render *rend)
 {
-	double start_angle = rend->player.angle - (M_PI / 6);
-	double distance;
-	double wall_height;
+	double	start_angle;
+	double	distance;
+	double	wall_height;
 
 	int x = 0;
+	start_angle = rend->player.angle - (M_PI / 6);
 	while (x < WIDTH)
 	{
 		distance = get_distance(rend, start_angle);
@@ -61,7 +57,8 @@ double	get_intersection_h(t_render *rend, double angle)
 	t_pos	ply;
 
 	ply = rend->player;
-	ray.y = floor((ply.y / TAIL)) * TAIL + (sin(angle) < 0) * (-0.0000001) + (sin(angle) >= 0) * TAIL;
+	ray.y = floor((ply.y / TAIL)) * TAIL + (sin(angle) < 0) * (-0.0000001)
+		+ (sin(angle) >= 0) * TAIL;
 	ray.x = ply.x + (ray.y - ply.y) / tan(angle);
 	ray.ystep = (sin(angle) < 0) * -TAIL + (sin(angle) >= 0) * TAIL;
 	ray.xstep = ray.ystep / tan(angle);
@@ -84,7 +81,8 @@ double	get_intersection_v(t_render *rend, double angle)
 	t_pos	ply;
 
 	ply = rend->player;
-	ray.x = floor((ply.x / TAIL)) * TAIL + (cos(angle) < 0) * (-0.0000001) + (cos(angle) >= 0) * TAIL;
+	ray.x = floor((ply.x / TAIL)) * TAIL + (cos(angle) < 0) * (-0.0000001)
+		+ (cos(angle) >= 0) * TAIL;
 	ray.y = ply.y + (ray.x - ply.x) * tan(angle);
 	ray.xstep = (cos(angle) < 0) * -TAIL + (cos(angle) >= 0) * TAIL;
 	ray.ystep = ray.xstep * tan(angle);
@@ -103,13 +101,13 @@ double	get_intersection_v(t_render *rend, double angle)
 
 void	draw_wall(t_render *render, double wall_height, int x)
 {
-	unsigned int color;
+	unsigned int	color;
 	int start_y = ((HEIGHT / 2) - (wall_height / 2));
 	if (start_y < 0)
 		start_y = 0;
 	int colors = -1;
 	while (++colors < start_y){
-		mlx_put_pixel(render->image, x, colors, render->colors[0]);
+		mlx_put_pixel(render->image, x, colors, render->colors[1]);
 	}
 	int i = 0;
 	color = 0xFFFF00FF;
@@ -121,7 +119,7 @@ void	draw_wall(t_render *render, double wall_height, int x)
 		i++;
 	}
 	while (start_y++ < HEIGHT){
-		mlx_put_pixel(render->image, x, start_y, render->colors[1]);
+		mlx_put_pixel(render->image, x, start_y, render->colors[0]);
 	}
 }
 
