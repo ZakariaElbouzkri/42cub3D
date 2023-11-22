@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 04:15:00 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/22 09:07:48 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/22 09:45:13 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,10 @@ uint32_t get_texture_offset(t_render *rend, double wall_height, int start_y, mlx
 	return (color);
 }
 
-uint32_t get_texture_color(t_render *rend, double wall_height, int screen_y)
+uint32_t	get_texture_color(t_render *rend, double wall_height, int screen_y)
 {
-	uint32_t color;
+	uint32_t	color;
 
-
-	color = 0xFFFF00FF;
 	if (!rend->hitv)
 	{
 		if (sin(rend->ray_angle) < 0)

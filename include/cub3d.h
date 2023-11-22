@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/22 09:05:45 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/22 09:43:37 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <MLX42.h>
 
 #define TAIL 64.0
-#define SPEED 4.0
+#define SPEED 6.0
 #define ROT 0.05
 
 #define N (3*M_PI_2)
