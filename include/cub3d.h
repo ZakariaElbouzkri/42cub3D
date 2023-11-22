@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/22 05:23:21 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/22 09:05:45 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,11 @@ typedef struct s_render {
 	mlx_texture_t	*tuxtures[4];
 	t_rgba		rgba[2];
 	t_pos		player;
+	t_pos		inter;
 	int			width;
 	int			height;
 	int			hitv;
 	double		ray_angle;
-	double		inter_posX;
-	double		inter_posY;
 } t_render;
 
 // parser functions
