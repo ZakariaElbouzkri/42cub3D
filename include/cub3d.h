@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: idryab <idryab@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/22 09:43:37 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/23 00:37:09 by idryab           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,16 @@
 #define HEIGHT 720
 
 #define DIST_TO_WINDOW  (HEIGHT / 2) / tan(FOV/2)
+
+typedef struct s_minimap
+{
+    int radius;
+    int start_y;
+    int start_x;
+    int end_y;
+    int end_x;
+    int player_size;
+} t_mmp;
 
 typedef struct s_rgba
 {
