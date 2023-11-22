@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 02:26:09 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/07 22:51:56 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/22 03:13:05 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <stdint.h>
+# include <stdbool.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -66,6 +67,8 @@ int		ft_isprint(int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_memcmp(const void *str1, const void *str2, size_t n);
 int		ft_atoi(const char *str);
+int		ft_max(int a, int b);
+bool	ft_empty(const char *str);
 // ft_printf functions :
 int		ft_printf(const char *format, ...);
 int		ft_putchar(char c);
