@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 04:52:07 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/22 04:52:30 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/23 00:42:23 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,5 @@ void	keypress(void *ptr)
 		+ mlx_is_key_down(rend->mlx, MLX_KEY_RIGHT) * ROT;
 	((rend->player.xstep != 0 || rend->player.ystep != 0) && move_player(rend));
 	cast_rays(rend);
+	draw_minimap(rend);
 }

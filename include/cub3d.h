@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idryab <idryab@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/23 00:37:09 by idryab           ###   ########.fr       */
+/*   Updated: 2023/11/23 00:42:13 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void	clear_t_render(t_render *rend, const char *err);
 // rendering
 
 void	cast_rays(t_render *rend);
+void    draw_minimap(t_render *rend);
 bool	check_wall(t_render *rend, t_pos pos);
 double	distance_horizontal(t_render *rend, double ray);
 double	distance_vertival(t_render *rend, double ray);
