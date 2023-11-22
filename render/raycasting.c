@@ -6,21 +6,11 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:32:06 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/21 22:51:58 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/22 05:20:50 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
-double	get_distance(t_render *rend, double ray_angle) {
-	double	distance_v;
-	double	distance_h;
-
-	distance_v = get_intersection_v(rend, ray_angle);
-	distance_h = get_intersection_h(rend, ray_angle);
-	rend->hitv = (distance_v < distance_h);
-	return (fmin(distance_h, distance_v));
-}
 
 void	cast_rays(t_render *rend)
 {
@@ -42,16 +32,7 @@ void	cast_rays(t_render *rend)
 	}
 }
 
-bool	check_wall(t_render *rend, t_pos pos)
-{
-	int x = (int)(pos.x / (int)TAIL);
-	int y = (int)(pos.y / (int)TAIL);
-	if (rend->map[y][x] == '1')
-		return (true);
-	return (false);
-}
-
-double	get_intersection_h(t_render *rend, double angle)
+double	distance_horizontal(t_render *rend, double angle)
 {
 	t_pos	ray;
 	t_pos	ply;
@@ -75,7 +56,7 @@ double	get_intersection_h(t_render *rend, double angle)
 	return (sqrt(pow(ray.x - ply.x, 2) + pow(ray.y - ply.y, 2)));
 }
 
-double	get_intersection_v(t_render *rend, double angle)
+double	distance_vertival(t_render *rend, double angle)
 {
 	t_pos	ray;
 	t_pos	ply;
@@ -101,13 +82,13 @@ double	get_intersection_v(t_render *rend, double angle)
 
 void	draw_wall(t_render *render, double wall_height, int x)
 {
-	unsigned int	color;
-	int start_y = ((HEIGHT / 2) - (wall_height / 2));
-	if (start_y < 0)
-		start_y = 0;
+	uint32_t	color;
+	int			start_y;
+
+	start_y = ft_max(0, ((HEIGHT / 2) - (wall_height / 2)));
 	int colors = -1;
 	while (++colors < start_y){
-		mlx_put_pixel(render->image, x, colors, render->colors[1]);
+		mlx_put_pixel(render->image, x, colors, render->rgba[1].hex);
 	}
 	int i = 0;
 	color = 0xFFFF00FF;
@@ -119,7 +100,7 @@ void	draw_wall(t_render *render, double wall_height, int x)
 		i++;
 	}
 	while (start_y++ < HEIGHT){
-		mlx_put_pixel(render->image, x, start_y, render->colors[0]);
+		mlx_put_pixel(render->image, x, start_y, render->rgba[0].hex);
 	}
 }
 
