@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idryab <idryab@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 11:43:00 by idryab            #+#    #+#             */
-/*   Updated: 2023/11/23 00:36:44 by idryab           ###   ########.fr       */
+/*   Updated: 2023/11/23 00:57:51 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-static void draw_player(t_render *rend, t_mmp *minimp)
+void draw_player(t_render *rend, t_mmp *minimp)
 {
 	int i;
 	int j;
@@ -32,7 +32,7 @@ static void draw_player(t_render *rend, t_mmp *minimp)
 	}
 }
 
-static void drawmm(t_render *rend, t_mmp *minimp, int olddrawX, int olddrawY)
+void drawmm(t_render *rend, t_mmp *minimp, int olddrawX, int olddrawY)
 {
     int drawY;
     int drawX;

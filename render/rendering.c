@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:20:27 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/22 04:52:04 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/23 00:44:13 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	load_textures(t_render *rend)
 
 void	init_mlx_vars(t_render *rend)
 {
-	rend->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
+	rend->mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", false);
 	if (!rend->mlx)
 		clear_t_render(rend, mlx_strerror(mlx_errno));
 	rend->image = mlx_new_image(rend->mlx, WIDTH, HEIGHT);
