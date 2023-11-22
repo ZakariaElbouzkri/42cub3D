@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 02:26:09 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/22 09:37:35 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/22 09:43:16 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		ft_strcmp(char *s1, char *s2);
 size_t	ft_strlen(const char *s);
 int		ft_atoi(const char *str);
 int		ft_max(int a, int b);
+int		ft_isdigit(int c);
 bool	ft_empty(const char *str);
 void	ft_puterror(int n, ...);
 char	*get_next_line(int fd);
