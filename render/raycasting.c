@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:32:06 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/22 05:20:50 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/22 09:13:17 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ double	distance_horizontal(t_render *rend, double angle)
 		ray.y += ray.ystep;
 		ray.x += ray.xstep;
 	}
-	rend->inter_posX = ray.x;
+	rend->inter.x = ray.x;
 	return (sqrt(pow(ray.x - ply.x, 2) + pow(ray.y - ply.y, 2)));
 }
 
@@ -76,31 +76,27 @@ double	distance_vertival(t_render *rend, double angle)
 		ray.x += ray.xstep;
 		ray.y += ray.ystep;
 	}
-	rend->inter_posY = ray.y;
+	rend->inter.y = ray.y;
 	return (sqrt(pow(ray.x - ply.x, 2) + pow(ray.y - ply.y, 2)));
 }
 
 void	draw_wall(t_render *render, double wall_height, int x)
 {
 	uint32_t	color;
-	int			start_y;
+	int			y;
+	int			itr;
 
-	start_y = ft_max(0, ((HEIGHT / 2) - (wall_height / 2)));
-	int colors = -1;
-	while (++colors < start_y){
-		mlx_put_pixel(render->image, x, colors, render->rgba[1].hex);
-	}
-	int i = 0;
-	color = 0xFFFF00FF;
-	while (i < wall_height && i < HEIGHT)
+	y = ft_max(0, ((HEIGHT / 2) - (wall_height / 2)));
+	itr = -1;
+	while (++itr < y)
+		mlx_put_pixel(render->image, x, itr, render->rgba[1].hex);
+	itr = -1;
+	while (++itr <= wall_height && itr < HEIGHT)
 	{
-		color = get_texture_color(render, wall_height, start_y);
-		mlx_put_pixel(render->image, x, start_y, color);
-		start_y++;
-		i++;
+		color = get_texture_color(render, wall_height, y++);
+		mlx_put_pixel(render->image, x, y, color);
 	}
-	while (start_y++ < HEIGHT){
-		mlx_put_pixel(render->image, x, start_y, render->rgba[0].hex);
-	}
+	while (y++ < HEIGHT)
+		mlx_put_pixel(render->image, x, y, render->rgba[0].hex);
 }
 
