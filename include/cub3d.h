@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/23 00:42:13 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/23 06:26:08 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,17 @@
 #define FOV M_PI / 3
 
 #define WIDTH  1240
-#define HEIGHT 720
+#define HEIGHT 1024
+
+#define M_START_X 10
+#define M_START_Y 10
+#define M_WIDTH 180
+#define M_HEIGHT 180
+#define M_HALF_W M_WIDTH / 2
+#define M_HALF_H M_HEIGHT / 2
+#define M_PLAYER_X M_START_X + M_HALF_W
+#define M_PLAYER_Y M_START_Y + M_HALF_H
+
 
 #define DIST_TO_WINDOW  (HEIGHT / 2) / tan(FOV/2)
 
