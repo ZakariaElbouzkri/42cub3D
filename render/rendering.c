@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:20:27 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/25 00:50:47 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/25 03:22:31 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ bool	load_textures(t_render *rend)
 
 bool	load_frames(t_render *rend)
 {
-	
-	int itr;
+	int				itr;
 	mlx_texture_t	*texture;
-	const char	*paths[] = {
+	const char		*paths[] = {
 		"./textures/frames/frame0.png",
 		"./textures/frames/frame1.png",
 		"./textures/frames/frame2.png",
 		"./textures/frames/frame3.png",
 		"./textures/frames/frame4.png"
 	};
+
 	itr = -1;
 	while (++itr < 5)
 	{
@@ -51,7 +51,8 @@ bool	load_frames(t_render *rend)
 		if (!texture)
 			return (false);
 		rend->frames[itr] = mlx_texture_to_image(rend->mlx, texture);
-		mlx_image_to_window(rend->mlx, rend->frames[itr], FRAME_POSX, FRAME_POSY);
+		mlx_image_to_window(rend->mlx, rend->frames[itr], 
+			FRAME_POSX, FRAME_POSY);
 		rend->frames[itr]->enabled = (itr == 0);
 		mlx_delete_texture(texture);
 	}

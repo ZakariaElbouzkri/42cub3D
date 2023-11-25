@@ -7,7 +7,7 @@ SRCS = lib/ft_atoi.c lib/ft_calloc.c lib/ft_empty.c lib/ft_isdigit.c lib/ft_max.
 	lib/ft_strtrim.c lib/ft_substr.c lib/get_next_line.c \
 	parser/parse_map.c parser/parse_textures.c parser/parser.c parser/parser_utils.c \
 	render/mouvments.c render/raycasting.c render/rendering.c render/texturing.c render/utils.c \
-	main.c ft_free.c render/minimap.c
+	main.c ft_free.c render/minimap.c render/frames.c
 
 OBJ  = $(SRCS:.c=.o)
 INC  = include/cub3d.h include/libft.h

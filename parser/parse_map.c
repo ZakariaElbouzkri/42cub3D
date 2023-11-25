@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:35:13 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/22 03:20:22 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/25 03:09:03 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ bool	map_is_valid(char **map, t_parse *prs)
 		while (map[y][++x])
 		{
 			if (ft_strchr("NESW0", map[y][x]) && !serounded(map, x, y))
-				return (ft_puterror(1, "Map not closed"), false);
+				return (ft_puterror(1, "Map Not Closed"), false);
 			if (ft_strchr("NSEW", map[y][x]) && !fill_player_pos(prs, x, y))
-				return (ft_puterror(1, "Duplicated player"), false);
+				return (ft_puterror(1, "Duplicated Player"), false);
 		}
 	}
 	if (fill_player_pos(prs, 0, 0) == true)
@@ -69,7 +69,7 @@ char	*copy_line(char const *src, int size)
 	int		idx;
 
 	if (!*src)
-		return (ft_puterror(1, "Empty line on map"), NULL);
+		return (ft_puterror(1, "Empty Line On Map"), NULL);
 	result = malloc(sizeof(char) * (size + 1));
 	if (!result)
 		return (NULL);
@@ -79,7 +79,7 @@ char	*copy_line(char const *src, int size)
 	{
 		if (!ft_strchr("10NSEW\t\v\r\n\f\v ", *src))
 			return (free(result),
-				ft_puterror(1, "Invalid character found in map"), NULL);
+				ft_puterror(1, "Invalid Item Found In Map"), NULL);
 		((!ft_strchr("\t\v\r\n\f\v", *src)) && (result[++idx] = *src));
 		src++;
 	}
@@ -96,7 +96,7 @@ bool	parse_map(t_parse *prs)
 		prs->heigth--;
 	}
 	if (!prs->lst)
-		return (ft_puterror(1, "Icomplete map"), false);
+		return (ft_puterror(1, "Icomplete Map"), false);
 	prs->map = ft_calloc(sizeof(char *), (prs->heigth + 3));
 	if (!prs->map)
 		return (ft_puterror(1, strerror(errno)), false);

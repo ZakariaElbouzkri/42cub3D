@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 03:15:45 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/24 05:50:09 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/25 03:12:08 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	lst_delone(t_lst **lst, t_lst *node)
 
 void	clear_t_render(t_render *rend, const char *err)
 {
-	int idx;
+	int	idx;
 
 	idx = -1;
 	while (++idx < 5)

@@ -2,8 +2,8 @@ NO ./textures/NO.png
 SO ./textures/SO.png
 WE ./textures/WE.png
 EA ./textures/EA.png
-F 02,32,22
-C 62,92,112
+F 90,100,100
+C 0,0,0
 
 
 11111111111111111111111111111111111111111
