@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 04:52:07 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/23 00:42:23 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/25 00:53:32 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,41 @@ int	move_player(t_render *rend)
 	return (0);
 }
 
+void	mouse_hook(t_render *rend)
+{
+	int x, y;
+
+	mlx_get_mouse_pos(rend->mlx, &x, &y);
+	int n = HALF_WIDTH - x;
+	n = (n < 0) + (n > 0) * (-1);
+	rend->player.angle += (((x >= HALF_WIDTH) * ROT + (x < HALF_WIDTH) * ROT)) * n;	
+}
+
+int	get_nex_frame(int *state)
+{
+	static int a;
+	static int idx;
+
+	if (idx == 4)
+		*state = false;
+	if (a < 3)
+		return (++a, idx);
+	idx = ((idx + 1) % 5);
+	*state = true;
+	return (a = 0, idx);
+}
+
+void	render_frames(t_render *rend, int *state)
+{
+	int itr;
+
+	itr = -1;
+	while (++itr < 5){
+		rend->frames[itr]->enabled = false;
+	}
+	itr = get_nex_frame(state);
+	rend->frames[itr]->enabled = true;
+}
 
 void	keypress(void *ptr)
 {
@@ -61,6 +96,12 @@ void	keypress(void *ptr)
 	rend->player.angle += mlx_is_key_down(rend->mlx, MLX_KEY_LEFT) * -ROT
 		+ mlx_is_key_down(rend->mlx, MLX_KEY_RIGHT) * ROT;
 	((rend->player.xstep != 0 || rend->player.ystep != 0) && move_player(rend));
+	if (mlx_is_mouse_down(rend->mlx, MLX_MOUSE_BUTTON_LEFT) || mlx_is_key_down(rend->mlx, MLX_KEY_SPACE)|| rend->state == true){
+		// rend->state = true;
+		render_frames(rend, &rend->state);
+	}
+	mouse_hook(rend);
+	mlx_set_mouse_pos(rend->mlx, HALF_WIDTH, HALF_HEIGHT);
 	cast_rays(rend);
 	draw_minimap(rend);
 }

@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 03:15:45 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/22 04:51:49 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/24 05:50:09 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,12 @@ void	clear_t_render(t_render *rend, const char *err)
 	int idx;
 
 	idx = -1;
-	while (++idx < 4)
+	while (++idx < 5)
 	{
-		if (rend->tuxtures[idx])
+		if (rend->tuxtures[idx] && idx < 4)
 			mlx_delete_texture(rend->tuxtures[idx]);
-		free(rend->paths[idx]);
+		if (rend->frames[idx] != NULL)
+			mlx_delete_image(rend->mlx, rend->frames[idx]);
 	}
 	free_map(rend->map);
 	mlx_delete_image(rend->mlx, rend->image);

@@ -1,5 +1,5 @@
 NAME = cub3D
-CC   = cc -Wall -Wextra -Werror -Ofast
+CC   = cc -Wall -Wextra -Werror 
 RM   = rm -f
 SRCS = lib/ft_atoi.c lib/ft_calloc.c lib/ft_empty.c lib/ft_isdigit.c lib/ft_max.c \
 	lib/ft_memset.c lib/ft_puterror.c lib/ft_putstr_fd.c lib/ft_split.c lib/ft_strchr.c \
