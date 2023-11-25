@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 03:32:06 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/22 09:13:17 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/25 03:21:23 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ void	cast_rays(t_render *rend)
 	double	start_angle;
 	double	distance;
 	double	wall_height;
+	int		x;
 
-	int x = 0;
+	x = -1;
 	start_angle = rend->player.angle - (M_PI / 6);
-	while (x < WIDTH)
+	while (++x < WIDTH)
 	{
 		distance = get_distance(rend, start_angle);
 		distance = distance * cos(start_angle - rend->player.angle);
 		wall_height = TAIL * DIST_TO_WINDOW / distance;
 		rend->ray_angle = start_angle;
 		draw_wall(rend, wall_height, x);
-		x++;
 		start_angle += (FOV / WIDTH);
 	}
 }
@@ -45,10 +45,11 @@ double	distance_horizontal(t_render *rend, double angle)
 	ray.xstep = ray.ystep / tan(angle);
 	while (true)
 	{
-		if (ray.x < 0.0 || ray.y < 0.0 || ray.x >= rend->width || ray.y >= rend->height)
-			break;
+		if (ray.x < 0.0 || ray.y < 0.0 || ray.x >= rend->width 
+			|| ray.y >= rend->height)
+			break ;
 		if (check_wall(rend, ray))
-			break;
+			break ;
 		ray.y += ray.ystep;
 		ray.x += ray.xstep;
 	}
@@ -69,10 +70,11 @@ double	distance_vertival(t_render *rend, double angle)
 	ray.ystep = ray.xstep * tan(angle);
 	while (true)
 	{
-		if (ray.x < 0.0 || ray.y < 0.0 || ray.x >= rend->width || ray.y >= rend->height)
-			break;
+		if (ray.x < 0.0 || ray.y < 0.0 || ray.x >= rend->width 
+			|| ray.y >= rend->height)
+			break ;
 		if (check_wall(rend, ray))
-			break;
+			break ;
 		ray.x += ray.xstep;
 		ray.y += ray.ystep;
 	}
@@ -99,4 +101,3 @@ void	draw_wall(t_render *render, double wall_height, int x)
 	while (y++ < HEIGHT)
 		mlx_put_pixel(render->image, x, y, render->rgba[0].hex);
 }
-

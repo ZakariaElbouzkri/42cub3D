@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 19:26:02 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/25 00:49:22 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/25 03:11:41 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,13 @@ void	pass_to_rendering(t_parse *prs)
 	render_game(&render);
 }
 
-void leaks() {
-	system("leaks cub3D");
-}
-
 int	main(int ac, char **av)
 {
 	t_parse	parser;
 
-	atexit(leaks);
 	ft_memset(&parser, 0, sizeof(t_parse));
 	if (ac != 2 || ft_strcmp(".cub", ft_strrchr(av[1], '.')))
-		return (ft_puterror(1, "usage: ./cub3D [path/to/map.cub]"), 1);
+		return (ft_puterror(1, "Usage: ./cub3D [path/to/map.cub]"), 1);
 	if (!parsed(av[1], &parser))
 		return (free_t_parse(&parser), 1);
 	pass_to_rendering(&parser);
