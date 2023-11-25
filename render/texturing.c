@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 04:15:00 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/23 06:14:55 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/24 05:59:16 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ uint32_t	my_pixel_put(mlx_texture_t *texture, int x, int y)
 
 uint32_t get_texture_offset(t_render *rend, double wall_height, int start_y, mlx_texture_t *texture)
 {
-	int			texture_y;
+	int			texture_y = 0;
 	int			texture_x;
 	uint32_t	color;
 

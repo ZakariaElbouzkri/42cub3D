@@ -6,7 +6,7 @@
 /*   By: zel-bouz <zel-bouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 23:57:59 by zel-bouz          #+#    #+#             */
-/*   Updated: 2023/11/23 06:26:08 by zel-bouz         ###   ########.fr       */
+/*   Updated: 2023/11/24 05:53:39 by zel-bouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@
 # include <math.h>
 # include <MLX42.h>
 
-#define TAIL 64.0
+#define TAIL 64
 #define SPEED 6.0
 #define ROT 0.05
 
-#define N (3*M_PI_2)
+#define N 3 * M_PI_2
 #define S M_PI_2
 #define W M_PI
 #define E 0.0
@@ -38,27 +38,30 @@
 
 #define WIDTH  1240
 #define HEIGHT 1024
+#define HALF_WIDTH WIDTH / 2
+#define HALF_HEIGHT HEIGHT / 2
 
 #define M_START_X 10
 #define M_START_Y 10
-#define M_WIDTH 180
-#define M_HEIGHT 180
+#define M_WIDTH 200
+#define M_HEIGHT 200
 #define M_HALF_W M_WIDTH / 2
 #define M_HALF_H M_HEIGHT / 2
 #define M_PLAYER_X M_START_X + M_HALF_W
 #define M_PLAYER_Y M_START_Y + M_HALF_H
 
+#define FRAME_POSX HALF_WIDTH - 180
+#define FRAME_POSY HEIGHT - 180
 
-#define DIST_TO_WINDOW  (HEIGHT / 2) / tan(FOV/2)
+
+#define DIST_TO_WINDOW  (HEIGHT / 2) / tan(FOV / 2)
+
+
 
 typedef struct s_minimap
 {
-    int radius;
     int start_y;
     int start_x;
-    int end_y;
-    int end_x;
-    int player_size;
 } t_mmp;
 
 typedef struct s_rgba
@@ -106,11 +109,13 @@ typedef struct s_render {
 	mlx_texture_t	*tuxtures[4];
 	t_rgba		rgba[2];
 	t_pos		player;
+	mlx_image_t	*frames[5];
 	t_pos		inter;
 	int			width;
 	int			height;
 	int			hitv;
 	double		ray_angle;
+	int	state;
 } t_render;
 
 // parser functions
